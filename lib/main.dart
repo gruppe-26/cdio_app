@@ -55,8 +55,9 @@ class LoginPageState extends State<LoginPage> with SingleTickerProviderStateMixi
           new Column(
             mainAxisAlignment: MainAxisAlignment.center, // Aligns logo to center
             children: <Widget>[
-              new FlutterLogo(
-                size: _iconAnimation.value*100,
+              new Image(
+                image: new AssetImage("assets/1280px-Aperture_Laboratories_Logo.png"),
+                width: 324,
               ),
               new Form(
                 child: new Theme(

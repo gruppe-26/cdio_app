@@ -45,6 +45,7 @@ flutter:
     - assets/laboratoryPlaceholder.png
     - assets/ApertureScienceLogo.png
     - assets/PortalLogo.jpg
+    - assets/1280px-Aperture_Laboratories_Logo.png
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware.
