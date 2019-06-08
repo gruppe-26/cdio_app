@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'otherPage.dart';
 // This main.dart contains the login page.
 void main()=> runApp(new MyApp());
 
@@ -9,7 +10,12 @@ class MyApp extends StatelessWidget{
         home: new LoginPage(), // This will be the loginpage, calling the login class below
         theme : new ThemeData(
             primarySwatch: Colors.blue
-        )
+        ),
+      initialRoute: '/',
+      routes: {
+        'home': (context) => LoginPage(),
+        '/otherPage': (context) => OtherScreen(),
+      },
     );
   }
 }
@@ -91,7 +97,9 @@ class LoginPageState extends State<LoginPage> with SingleTickerProviderStateMixi
                           textColor: Colors.white,
 
                           child: new Text("Login"),
-                          onPressed: () => {},
+                          onPressed: () {
+                            Navigator.pushNamed(context, '/otherPage');
+                          },
                         )
                       ],
                     ),
