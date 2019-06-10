@@ -8,16 +8,17 @@ class MyCustomForm extends StatefulWidget {
 }
 
 class _MenuTab3 extends State<MyCustomForm> {
-  String _username;
-  String _name;
-  String _initials;
-  String _password;
 
-  final textEditingController = TextEditingController();
-
+  final _username = TextEditingController();
+  final _name = TextEditingController();
+  final _initials = TextEditingController();
+  final _password = TextEditingController();
   @override
   void dispose() {
-    textEditingController.dispose();
+    _username.dispose();
+    _name.dispose();
+    _initials.dispose();
+    _password.dispose();
     super.dispose();
   }
 
@@ -49,7 +50,7 @@ class _MenuTab3 extends State<MyCustomForm> {
 
                             ),
                             keyboardType: TextInputType.text,
-                            controller: textEditingController,
+                            controller: _username,
                           ),
 
                           new TextField(
@@ -58,7 +59,7 @@ class _MenuTab3 extends State<MyCustomForm> {
                               hintText: 'e.g Mikkel Mikkelsen',
                             ),
                             keyboardType: TextInputType.text,
-                            controller: textEditingController,
+                            controller: _name,
                           ),
 
                           new TextField(
@@ -67,7 +68,7 @@ class _MenuTab3 extends State<MyCustomForm> {
                                 hintText: '3 letter abbreviation'
                             ),
                             keyboardType: TextInputType.text,
-                            controller: textEditingController,
+                            controller: _initials,
                           ),
 
                           new TextField(
@@ -77,7 +78,7 @@ class _MenuTab3 extends State<MyCustomForm> {
                             ),
                             keyboardType: TextInputType.text,
                             obscureText: true,
-                            controller: textEditingController,
+                            controller: _password,
                           ),
 
 
@@ -96,7 +97,7 @@ class _MenuTab3 extends State<MyCustomForm> {
                               return showDialog(context: context,
                               builder: (context) {
                                 return AlertDialog(
-                                  content: Text(textEditingController.text),
+                                  content: Text('Username: '+_username.text+' Initials: '+_initials.text),
                                 );
                               });
 

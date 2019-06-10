@@ -46,6 +46,7 @@ class LoginPageState extends State<LoginPage> with SingleTickerProviderStateMixi
                         new TextFormField(
                           decoration: new InputDecoration(
                             labelText: "Enter Username",
+                              errorStyle: TextStyle(fontSize: 16.0),
                           ),
                           keyboardType: TextInputType.text,
 
@@ -59,6 +60,7 @@ class LoginPageState extends State<LoginPage> with SingleTickerProviderStateMixi
                         new TextFormField(
                           decoration: new InputDecoration(
                             labelText: "Enter Password",
+                              errorStyle: TextStyle(fontSize: 18.0),
                           ),
                           keyboardType: TextInputType.text,
                           obscureText: true,
