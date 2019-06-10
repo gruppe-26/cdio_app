@@ -56,9 +56,11 @@ class LoginPageState extends State<LoginPage> with SingleTickerProviderStateMixi
                           padding: const EdgeInsets.only(top:20.0),
                         ),
                         new MaterialButton(
+                          minWidth: 500,
+                          height: 50.0,
                           color: Colors.blueAccent,
                           textColor: Colors.white,
-
+                          shape: new RoundedRectangleBorder(borderRadius: new BorderRadius.circular(30.0)),
                           child: new Text("Login"),
                           onPressed: () {
                             Navigator.pushNamed(context, '/otherPage');
