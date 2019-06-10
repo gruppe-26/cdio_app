@@ -16,8 +16,9 @@ class MenuTab2 extends StatelessWidget {
               onPressed: () {
                 Navigator.pop(context);
               },
-              color: Colors.red,
+              color: Colors.blueAccent,
               textColor: Colors.white,
+              shape: new RoundedRectangleBorder(borderRadius: new BorderRadius.circular(30.0)),
               icon: const Icon(Icons.navigate_next, size: 18.0),
               label: const Text('Go To Details'),
             ),
@@ -27,3 +28,4 @@ class MenuTab2 extends StatelessWidget {
     );
   }
 }
+
