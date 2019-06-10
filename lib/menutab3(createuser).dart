@@ -34,6 +34,7 @@ class MenuTab3 extends StatelessWidget {
                             decoration: new InputDecoration(
                               labelText: "Username",
                               hintText: 'e.g Dragonslayer69',
+
                             ),
                             keyboardType: TextInputType.text,
                             onSaved: (value) => this._userName = value,
@@ -73,8 +74,11 @@ class MenuTab3 extends StatelessWidget {
                             padding: const EdgeInsets.only(top:20.0),
                           ),
                           new MaterialButton(
+                            minWidth: 500,
+                            height: 50.0,
                             color: Colors.blueAccent,
                             textColor: Colors.white,
+                            shape: new RoundedRectangleBorder(borderRadius: new BorderRadius.circular(30.0)),
                             child: new Text("Create User"),
 
                             onPressed: () {
