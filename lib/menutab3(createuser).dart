@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
 import 'user.dart';
 
@@ -94,10 +96,14 @@ class _MenuTab3 extends State<MyCustomForm> {
                             child: new Text("Create User"),
 
                             onPressed: () {
+                              var user = new User(_username.text, _name.text, _initials.text, _password.text);
+
+                              String json = jsonEncode(user);
+
                               return showDialog(context: context,
                               builder: (context) {
                                 return AlertDialog(
-                                  content: Text('Username: '+_username.text+' Initials: '+_initials.text),
+                                  content: Text(json),
                                 );
                               });
 
