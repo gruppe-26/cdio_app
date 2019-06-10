@@ -1,16 +1,28 @@
 import 'package:flutter/material.dart';
+import 'user.dart';
 
 
-class MenuTab3 extends StatelessWidget {
-  String _userName;
-  String _firstName;
+class MyCustomForm extends StatefulWidget {
+  @override
+   createState() => _MenuTab3();
+}
+
+class _MenuTab3 extends State<MyCustomForm> {
+  String _username;
+  String _name;
   String _initials;
-  int _CPR;
   String _password;
+
+  final textEditingController = TextEditingController();
+
+  @override
+  void dispose() {
+    textEditingController.dispose();
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
-    // TODO: implement build
     return new Scaffold(
       backgroundColor: Colors.black38,
       body: SingleChildScrollView(
@@ -30,38 +42,42 @@ class MenuTab3 extends StatelessWidget {
                       child: new Column(
                         crossAxisAlignment: CrossAxisAlignment.center ,
                         children: <Widget>[
-                          new TextFormField(
+                          new TextField(
                             decoration: new InputDecoration(
                               labelText: "Username",
                               hintText: 'e.g Dragonslayer69',
 
                             ),
                             keyboardType: TextInputType.text,
+                            controller: textEditingController,
                           ),
 
-                          new TextFormField(
+                          new TextField(
                             decoration: new InputDecoration(
                               labelText: "First Name",
                               hintText: 'e.g Mikkel Mikkelsen',
                             ),
                             keyboardType: TextInputType.text,
+                            controller: textEditingController,
                           ),
 
-                          new TextFormField(
+                          new TextField(
                             decoration: new InputDecoration(
                                 labelText: "Initials",
                                 hintText: '3 letter abbreviation'
                             ),
                             keyboardType: TextInputType.text,
+                            controller: textEditingController,
                           ),
 
-                          new TextFormField(
+                          new TextField(
                             decoration: new InputDecoration(
                               labelText: "Password",
                               hintText: 'Probably a good idea to keep it a secret ;)',
                             ),
                             keyboardType: TextInputType.text,
                             obscureText: true,
+                            controller: textEditingController,
                           ),
 
 
@@ -77,7 +93,14 @@ class MenuTab3 extends StatelessWidget {
                             child: new Text("Create User"),
 
                             onPressed: () {
-                                Navigator.pushNamed(context, '/otherPage');
+                              return showDialog(context: context,
+                              builder: (context) {
+                                return AlertDialog(
+                                  content: Text(textEditingController.text),
+                                );
+                              });
+
+                                //Navigator.pushNamed(context, '/otherPage');
                             },
                           )
                         ],

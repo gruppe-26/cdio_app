@@ -56,7 +56,7 @@ class OtherScreen extends StatelessWidget {
             children:<Widget>[ // Each child is the content for each of the 3 tabs.
               new MenuTab1(),
               new MenuTab2(),
-              new MenuTab3(),
+              new MyCustomForm(),
             ],
           )),
 
