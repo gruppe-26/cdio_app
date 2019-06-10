@@ -1,5 +1,5 @@
 import 'dart:convert';
-
+import 'package:grouped_buttons/grouped_buttons.dart';
 import 'package:flutter/material.dart';
 import 'user.dart';
 
@@ -15,6 +15,17 @@ class _MenuTab3 extends State<MyCustomForm> {
   final _name = TextEditingController();
   final _initials = TextEditingController();
   final _password = TextEditingController();
+
+  bool ad = false;
+  bool pharma = false;
+  bool prod = false;
+  bool lab = false;
+  List<String> arrayList;
+  String Admin="Admin";
+  String Pharmaceut="Pharmaceut";
+  String ProductionLeader="Production Leader";
+  String Laborant="Laborant";
+
   @override
   void dispose() {
     _username.dispose();
@@ -82,8 +93,20 @@ class _MenuTab3 extends State<MyCustomForm> {
                             obscureText: true,
                             controller: _password,
                           ),
-
-
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: <Widget>[
+                              checkBox(Admin, ad),
+                              checkBox(Pharmaceut, pharma),
+                            ],
+                          ),
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: <Widget>[
+                              checkBox(ProductionLeader, prod),
+                              checkBox(Laborant, lab)
+                            ],
+                          ),
                           new Padding(
                             padding: const EdgeInsets.only(top:20.0),
                           ),
@@ -123,4 +146,16 @@ class _MenuTab3 extends State<MyCustomForm> {
       ),
     );
   }
+}
+
+Widget checkBox(String role, bool roleValue){
+  return Column(
+    mainAxisAlignment: MainAxisAlignment.center,
+    children: <Widget>[
+      Text(role),
+      Checkbox(value: roleValue,
+        onChanged: (bool value){},
+      )
+    ],
+  );
 }
