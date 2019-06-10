@@ -15,12 +15,15 @@ class _MenuTab3 extends State<MyCustomForm> {
   final _name = TextEditingController();
   final _initials = TextEditingController();
   final _password = TextEditingController();
+  final _roles = TextEditingController();
+
   @override
   void dispose() {
     _username.dispose();
     _name.dispose();
     _initials.dispose();
     _password.dispose();
+    _roles.dispose();
     super.dispose();
   }
 
@@ -96,7 +99,7 @@ class _MenuTab3 extends State<MyCustomForm> {
                             child: new Text("Create User"),
 
                             onPressed: () {
-                              var user = new User(_username.text, _name.text, _initials.text, _password.text);
+                              var user = new User(_username.text, _name.text, _initials.text, _password.text,_roles.text);
 
                               String json = jsonEncode(user);
 
