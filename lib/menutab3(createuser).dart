@@ -7,7 +7,7 @@ class MenuTab3 extends StatelessWidget {
   String _initials;
   int _CPR;
   String _password;
-  final _formKey = GlobalKey<FormState>();
+  final _formKey1 = GlobalKey<FormState>();
 
   @override
   Widget build(BuildContext context) {
@@ -20,6 +20,7 @@ class MenuTab3 extends StatelessWidget {
             new Column(
               children: <Widget>[
                 new Form(
+                  key: _formKey1,
                   child: new Theme(
                     data: new ThemeData(
                         brightness: Brightness.dark, primarySwatch: Colors.blue,
@@ -36,8 +37,12 @@ class MenuTab3 extends StatelessWidget {
                               hintText: 'e.g Dragonslayer69',
                             ),
                             keyboardType: TextInputType.text,
-                            onSaved: (value) => this._userName = value,
-
+                            validator: (value) {
+                              if (value.isEmpty) {
+                                return 'Username is Empty';
+                              }
+                              return null;
+                            },
                           ),
 
                           new TextFormField(
@@ -46,7 +51,12 @@ class MenuTab3 extends StatelessWidget {
                               hintText: 'e.g Mikkel Mikkelsen',
                             ),
                             keyboardType: TextInputType.text,
-                            onSaved: (value) => this._firstName = value,
+                            validator: (value) {
+                              if (value.isEmpty) {
+                                return 'First name is Empty';
+                              }
+                              return null;
+                            },
                           ),
 
                           new TextFormField(
@@ -55,7 +65,12 @@ class MenuTab3 extends StatelessWidget {
                                 hintText: '3 letter abbreviation'
                             ),
                             keyboardType: TextInputType.text,
-                            onSaved: (value) => this._initials = value,
+                            validator: (value) {
+                              if (value.isEmpty) {
+                                return 'Initials is empty';
+                              }
+                              return null;
+                            },
                           ),
 
                           new TextFormField(
@@ -64,8 +79,13 @@ class MenuTab3 extends StatelessWidget {
                               hintText: 'Probably a good idea to keep it a secret ;)',
                             ),
                             keyboardType: TextInputType.text,
-                            onSaved: (value) => this._password = value,
                             obscureText: true,
+                            validator: (value) {
+                              if (value.isEmpty) {
+                                return 'Password is empty.';
+                              }
+                              return null;
+                            },
                           ),
 
 
@@ -78,7 +98,12 @@ class MenuTab3 extends StatelessWidget {
                             child: new Text("Create User"),
 
                             onPressed: () {
-                              Navigator.pushNamed(context, '/otherPage');
+                              if (_formKey1.currentState.validate()) {
+                                // often want to call a server or save the information in a database
+                                // If the form is filled out, then go to profile page. In reality we need to check the username/password
+                                //TODO: Connect create state with backend/database and confirm credentials
+                                Navigator.pushNamed(context, '/otherPage');
+                              }
                             },
                           )
                         ],

@@ -43,7 +43,6 @@ class LoginPageState extends State<LoginPage> with SingleTickerProviderStateMixi
                       crossAxisAlignment: CrossAxisAlignment.center ,
                       children: <Widget>[
 
-
                         new TextFormField(
                           decoration: new InputDecoration(
                             labelText: "Enter Username",
@@ -56,7 +55,6 @@ class LoginPageState extends State<LoginPage> with SingleTickerProviderStateMixi
                             }
                             return null;
                           },
-
                         ),
                         new TextFormField(
                           decoration: new InputDecoration(
