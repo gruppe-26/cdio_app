@@ -27,24 +27,9 @@ class LoginPage extends StatefulWidget{ // Using statefulwidget because we will 
 }
 
 class LoginPageState extends State<LoginPage> with SingleTickerProviderStateMixin{
-  // Before override, we create an animation for the flutter logo on the login page on startup
-  AnimationController _iconAnimationController;
-  Animation<double> _iconAnimation;
+// Create a global key that will uniquely identify the Form widget and allow us to validate the form
+final _formKey = GlobalKey<FormState>();
 
-  @override
-  void initState(){
-    super.initState();
-    _iconAnimationController = new AnimationController(
-        vsync: this,
-        duration: new Duration(milliseconds: 640)
-    );
-    _iconAnimation = new CurvedAnimation(
-        parent: _iconAnimationController,
-        curve: Curves.easeIn
-    );
-    _iconAnimation.addListener(()=> this.setState((){}));
-    _iconAnimationController.forward();
-  }
 
   @override
   Widget build(BuildContext context){
@@ -67,6 +52,7 @@ class LoginPageState extends State<LoginPage> with SingleTickerProviderStateMixi
                 width: 324,
               ),
               new Form(
+                key: _formKey, // Here is the form key inside the form
                 child: new Theme(
                   data: new ThemeData(
                       brightness: Brightness.dark, primarySwatch: Colors.teal,
@@ -77,11 +63,21 @@ class LoginPageState extends State<LoginPage> with SingleTickerProviderStateMixi
                     child: new Column(
                       crossAxisAlignment: CrossAxisAlignment.center ,
                       children: <Widget>[
+
+
                         new TextFormField(
                           decoration: new InputDecoration(
                             labelText: "Enter Username",
                           ),
                           keyboardType: TextInputType.text,
+
+                          validator: (value) {
+                            if (value.isEmpty) {
+                              return 'Username incorrect.';
+                            }
+                            return null;
+                          },
+
                         ),
                         new TextFormField(
                           decoration: new InputDecoration(
@@ -89,6 +85,12 @@ class LoginPageState extends State<LoginPage> with SingleTickerProviderStateMixi
                           ),
                           keyboardType: TextInputType.text,
                           obscureText: true,
+                          validator: (value) {
+                            if (value.isEmpty) {
+                              return 'Password incorrect.';
+                            }
+                            return null;
+                          },
                         ),
                         new Padding(
                           padding: const EdgeInsets.only(top:20.0),
@@ -99,7 +101,13 @@ class LoginPageState extends State<LoginPage> with SingleTickerProviderStateMixi
 
                           child: new Text("Login"),
                           onPressed: () {
-                            Navigator.pushNamed(context, '/otherPage');
+                            if (_formKey.currentState.validate()) {
+                              // often want to call a server or save the information in a database
+                              // If the form is filled out, then go to profile page. In reality we need to check the username/password
+                              //TODO: Connect login state with backend/database and confirm credentials
+                              Navigator.pushNamed(context, '/otherPage');
+                            }
+
                           },
                         )
                       ],
@@ -114,3 +122,4 @@ class LoginPageState extends State<LoginPage> with SingleTickerProviderStateMixi
     );
   }
 }
+
