@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 import 'user.dart';
 
 
-class CreateUserForm extends StatefulWidget {
+class MyCustomForm extends StatefulWidget {
   @override
    createState() => _MenuTab3();
 }
@@ -21,10 +21,42 @@ class _MenuTab3 extends State<CreateUserForm> {
   bool pharma = false;
   bool prod = false;
   bool lab = false;
+  List<String> arrayList;
   String Admin="Admin";
-  String Pharmaceut="Pharmaceut";
+  String Pharmaceut="Pharmacist";
   String ProductionLeader="Production Leader";
   String Laborant="Laborant";
+
+  // lister
+  List<DropdownMenuItem<CheckboxListTile>> listDrop =[];
+  var checkbox1 = false;
+  var checkbox2 = false;
+  var checkbox3 = false;
+  var checkbox4 = false;
+
+  void change1(bool val){
+    setState(() {
+      checkbox1 = val;
+    });
+  }
+  void change2(bool val){
+    setState(() {
+      checkbox2 = val;
+    });
+  }
+  void change3(bool val){
+    setState(() {
+      checkbox3 = val;
+    });
+  }
+  void change4(bool val){
+    setState(() {
+      checkbox4 = val;
+    });
+  }
+
+
+  //laver vores egen checkboxlist
 
   @override
   void dispose() {
@@ -39,6 +71,7 @@ class _MenuTab3 extends State<CreateUserForm> {
 
   @override
   Widget build(BuildContext context) {
+
     return new Scaffold(
       backgroundColor: Colors.black38,
       body: SingleChildScrollView(
@@ -54,6 +87,7 @@ class _MenuTab3 extends State<CreateUserForm> {
                         inputDecorationTheme: new InputDecorationTheme(
                             labelStyle: new TextStyle(color: Colors.white,fontSize: 20.0))),
                     child: Container(
+                      color: Colors.blue,
                       padding: const EdgeInsets.all(40.0),
                       child: new Column(
                         crossAxisAlignment: CrossAxisAlignment.center ,
@@ -104,28 +138,24 @@ class _MenuTab3 extends State<CreateUserForm> {
                             obscureText: true,
                             controller: _password,
                           ),
-                          Row(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            children: <Widget>[
-                              checkBox(Admin, ad),
-                              checkBox(Pharmaceut, pharma),
-                            ],
-                          ),
-                          Row(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            children: <Widget>[
-                              checkBox(ProductionLeader, prod),
-                              checkBox(Laborant, lab)
-                            ],
-                          ),
-                          new Padding(
-                            padding: const EdgeInsets.only(top:20.0),
-                          ),
+
+                        CheckboxListTile(
+                        value: checkbox1, onChanged: change1, title: Text("Admin")),
+
+                        CheckboxListTile(
+                          value: checkbox2, onChanged: change2, title: Text("Pharmacist")),
+
+                        CheckboxListTile(
+                         value: checkbox3, onChanged: change3, title: Text("Production Leader")),
+
+                        CheckboxListTile(
+                         value: checkbox4, onChanged: change4, title: Text("Laborant")),
+
                           new MaterialButton(
                             minWidth: 500,
                             height: 50.0,
-                            color: Colors.blueAccent,
-                            textColor: Colors.white,
+                            color: Colors.white,
+                            textColor: Colors.blue,
                             shape: new RoundedRectangleBorder(borderRadius: new BorderRadius.circular(30.0)),
                             child: new Text("Create User"),
 
