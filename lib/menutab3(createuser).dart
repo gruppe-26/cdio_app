@@ -88,6 +88,7 @@ class _MenuTab3 extends State<MyCustomForm> {
                         inputDecorationTheme: new InputDecorationTheme(
                             labelStyle: new TextStyle(color: Colors.white,fontSize: 20.0))),
                     child: Container(
+                      color: Colors.blue,
                       padding: const EdgeInsets.all(40.0),
                       child: new Column(
                         crossAxisAlignment: CrossAxisAlignment.center ,
@@ -145,8 +146,8 @@ class _MenuTab3 extends State<MyCustomForm> {
                           new MaterialButton(
                             minWidth: 500,
                             height: 50.0,
-                            color: Colors.blueAccent,
-                            textColor: Colors.white,
+                            color: Colors.white,
+                            textColor: Colors.blue,
                             shape: new RoundedRectangleBorder(borderRadius: new BorderRadius.circular(30.0)),
                             child: new Text("Create User"),
 
