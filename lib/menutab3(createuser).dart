@@ -152,6 +152,22 @@ class _MenuTab3 extends State<CreateUserForm> {
 
                             onPressed: () {
 
+                              if(checkbox1 == true){
+                                roles.add("Admin");
+                              }
+
+                              if(checkbox2 == true){
+                                roles.add("Pharmacist");
+                              }
+
+                              if(checkbox3 == true){
+                                roles.add("Production Leader");
+                              }
+
+                              if(checkbox4 == true){
+                                roles.add("Laborant");
+                              }
+
                                var user = new User(_userID.text,_username.text, _initials.text, _password.text, roles);
 
                                String json = jsonEncode(user);
