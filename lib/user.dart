@@ -4,7 +4,7 @@ import 'dart:convert'; //importeres for at kunne bruge jsonEncode herinde.
 // User  model/class
 class User {
   // Fields
-  int userId;
+  String userId;
   String userName;
   String ini;
   String password;
@@ -49,7 +49,7 @@ void main () {
   List<String> roller = new List<String>(); //denne er også "growable".
   roller.add("Admin");
   roller.add("Pharmaceut");
-  User bruger = new User(4, "Dragonslayer69", "TES", "Hundkat123", roller);
+  User bruger = new User("4", "Dragonslayer69", "TES", "Hundkat123", roller);
 
   print("-----");
   print("Print af roller: ");

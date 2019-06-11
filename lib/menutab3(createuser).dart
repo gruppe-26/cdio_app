@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 import 'user.dart';
 
 
-class MyCustomForm extends StatefulWidget {
+class CreateUserForm extends StatefulWidget {
   @override
    createState() => _MenuTab3();
 }
@@ -12,7 +12,6 @@ class MyCustomForm extends StatefulWidget {
 class _MenuTab3 extends State<CreateUserForm> {
   final _userID = TextEditingController();
   final _username = TextEditingController();
-  final _name = TextEditingController();
   final _initials = TextEditingController();
   final _password = TextEditingController();
   final _role = TextEditingController();
@@ -26,6 +25,8 @@ class _MenuTab3 extends State<CreateUserForm> {
   String Pharmaceut="Pharmacist";
   String ProductionLeader="Production Leader";
   String Laborant="Laborant";
+
+  List<String> roles = new List(4);
 
   // lister
   List<DropdownMenuItem<CheckboxListTile>> listDrop =[];
@@ -62,7 +63,6 @@ class _MenuTab3 extends State<CreateUserForm> {
   void dispose() {
     _userID.dispose();
     _username.dispose();
-    _name.dispose();
     _initials.dispose();
     _password.dispose();
     _role.dispose();
@@ -74,7 +74,7 @@ class _MenuTab3 extends State<CreateUserForm> {
 
     return new Scaffold(
       backgroundColor: Colors.black38,
-      body: SingleChildScrollView(
+      body: SingleChildScrollView( // Allows to
         child: new Stack(
           children: <Widget>[
             new Column(
@@ -98,7 +98,7 @@ class _MenuTab3 extends State<CreateUserForm> {
                               hintText: 'Number between 1-100',
 
                             ),
-                            keyboardType: TextInputType.text,
+                            keyboardType: TextInputType.number,
                             controller: _userID,
                           ),
                           new TextField(
@@ -109,15 +109,6 @@ class _MenuTab3 extends State<CreateUserForm> {
                             ),
                             keyboardType: TextInputType.text,
                             controller: _username,
-                          ),
-
-                          new TextField(
-                            decoration: new InputDecoration(
-                              labelText: "First Name",
-                              hintText: 'e.g Mikkel Mikkelsen',
-                            ),
-                            keyboardType: TextInputType.text,
-                            controller: _name,
                           ),
 
                           new TextField(
@@ -160,18 +151,19 @@ class _MenuTab3 extends State<CreateUserForm> {
                             child: new Text("Create User"),
 
                             onPressed: () {
-                              // var user = new User(_userID,_username.text, _name.text, _initials.text, _password.text, );
 
-                             //  String json = jsonEncode(user);
+                               var user = new User(_userID.text,_username.text, _initials.text, _password.text, roles);
+
+                               String json = jsonEncode(user);
 
                               return showDialog(context: context,
                               builder: (context) {
                                 return AlertDialog(
-                               //   content: Text(json),
+                                  content: Text(json),
                                 );
                               });
 
-                                //Navigator.pushNamed(context, '/otherPage');
+                                Navigator.pushNamed(context, '/otherPage');
                             },
                           )
                         ],
