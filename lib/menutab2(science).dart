@@ -14,7 +14,7 @@ class MenuTab2 extends StatelessWidget {
             padding: const EdgeInsets.only(top: 16.0),
             child: new FlatButton.icon(
               onPressed: () {
-                Navigator.pop(context);
+
               },
               color: Colors.blueAccent,
               textColor: Colors.white,

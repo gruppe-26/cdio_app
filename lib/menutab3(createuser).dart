@@ -3,6 +3,8 @@ import 'package:grouped_buttons/grouped_buttons.dart';
 import 'package:flutter/material.dart';
 import 'user.dart';
 
+import 'dropdown.dart';
+
 
 class MyCustomForm extends StatefulWidget {
   @override
@@ -10,6 +12,8 @@ class MyCustomForm extends StatefulWidget {
 }
 
 class _MenuTab3 extends State<MyCustomForm> {
+
+
 
   final _username = TextEditingController();
   final _name = TextEditingController();
@@ -26,6 +30,37 @@ class _MenuTab3 extends State<MyCustomForm> {
   String ProductionLeader="Production Leader";
   String Laborant="Laborant";
 
+  // lister
+  List<DropdownMenuItem<CheckboxListTile>> listDrop =[];
+  var checkbox1 = false;
+  var checkbox2 = false;
+  var checkbox3 = false;
+  var checkbox4 = false;
+
+  void change1(bool val){
+    setState(() {
+      checkbox1 = val;
+    });
+  }
+  void change2(bool val){
+    setState(() {
+      checkbox2 = val;
+    });
+  }
+  void change3(bool val){
+    setState(() {
+      checkbox3 = val;
+    });
+  }
+  void change4(bool val){
+    setState(() {
+      checkbox4 = val;
+    });
+  }
+
+
+  //laver vores egen checkboxlist
+
   @override
   void dispose() {
     _username.dispose();
@@ -37,6 +72,7 @@ class _MenuTab3 extends State<MyCustomForm> {
 
   @override
   Widget build(BuildContext context) {
+
     return new Scaffold(
       backgroundColor: Colors.black38,
       body: SingleChildScrollView(
@@ -93,23 +129,19 @@ class _MenuTab3 extends State<MyCustomForm> {
                             obscureText: true,
                             controller: _password,
                           ),
-                          Row(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            children: <Widget>[
-                              checkBox(Admin, ad),
-                              checkBox(Pharmaceut, pharma),
-                            ],
-                          ),
-                          Row(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            children: <Widget>[
-                              checkBox(ProductionLeader, prod),
-                              checkBox(Laborant, lab)
-                            ],
-                          ),
-                          new Padding(
-                            padding: const EdgeInsets.only(top:20.0),
-                          ),
+
+                        CheckboxListTile(
+                        value: checkbox1, onChanged: change1, title: Text("Admin")),
+
+                        CheckboxListTile(
+                          value: checkbox2, onChanged: change2, title: Text("Pharmaceut")),
+
+                        CheckboxListTile(
+                         value: checkbox3, onChanged: change3, title: Text("Production Leader")),
+
+                        CheckboxListTile(
+                         value: checkbox4, onChanged: change4, title: Text("Laborant")),
+
                           new MaterialButton(
                             minWidth: 500,
                             height: 50.0,

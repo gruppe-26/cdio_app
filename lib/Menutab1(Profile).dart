@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
 
+import 'loginpagestate.dart';
+import 'loginpage.dart';
+
 class MenuTab1 extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
@@ -14,8 +17,12 @@ class MenuTab1 extends StatelessWidget {
             padding: const EdgeInsets.only(top: 16.0),
             child: new FlatButton.icon(
               onPressed: () {
-                Navigator.pop(context);
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (context) => LoginPage()),
+                );
               },
+
               color: Colors.blueAccent,
               textColor: Colors.white,
               shape: new RoundedRectangleBorder(borderRadius: new BorderRadius.circular(30.0)),
