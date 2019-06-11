@@ -26,7 +26,7 @@ class _MenuTab3 extends State<MyCustomForm> {
   bool lab = false;
   List<String> arrayList;
   String Admin="Admin";
-  String Pharmaceut="Pharmaceut";
+  String Pharmaceut="Pharmacist";
   String ProductionLeader="Production Leader";
   String Laborant="Laborant";
 
@@ -135,7 +135,7 @@ class _MenuTab3 extends State<MyCustomForm> {
                         value: checkbox1, onChanged: change1, title: Text("Admin")),
 
                         CheckboxListTile(
-                          value: checkbox2, onChanged: change2, title: Text("Pharmaceut")),
+                          value: checkbox2, onChanged: change2, title: Text("Pharmacist")),
 
                         CheckboxListTile(
                          value: checkbox3, onChanged: change3, title: Text("Production Leader")),
