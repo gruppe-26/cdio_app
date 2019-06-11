@@ -26,7 +26,7 @@ class _MenuTab3 extends State<CreateUserForm> {
   String ProductionLeader="Production Leader";
   String Laborant="Laborant";
 
-  List<String> roles = new List(4);
+  List<String> roles = new List();
 
   // lister
   List<DropdownMenuItem<CheckboxListTile>> listDrop =[];
@@ -170,7 +170,9 @@ class _MenuTab3 extends State<CreateUserForm> {
 
                                var user = new User(_userID.text,_username.text, _initials.text, _password.text, roles);
 
-                               String json = jsonEncode(user);
+                              String json = jsonEncode(user);
+                              roles.clear();
+                              Navigator.pushNamed(context, '/otherPage');
 
                               return showDialog(context: context,
                               builder: (context) {
@@ -179,7 +181,6 @@ class _MenuTab3 extends State<CreateUserForm> {
                                 );
                               });
 
-                                Navigator.pushNamed(context, '/otherPage');
                             },
                           )
                         ],
