@@ -1,14 +1,19 @@
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
 
 //other imports
 import 'loginpage.dart';
 import 'otherPage.dart';
+import 'loginUser.dart';
 
 
 class LoginPageState extends State<LoginPage> with SingleTickerProviderStateMixin{
 // Create a global key that will uniquely identify the Form widget and allow us to validate the form
   final _formKey = GlobalKey<FormState>();
 
+  final _username = TextEditingController();
+  final _password = TextEditingController();
 
   @override
   Widget build(BuildContext context){
@@ -50,6 +55,8 @@ class LoginPageState extends State<LoginPage> with SingleTickerProviderStateMixi
                           ),
                           keyboardType: TextInputType.text,
 
+                          controller: _username,
+
                           validator: (value) {
                             if (value.isEmpty) {
                               return 'Username incorrect.';
@@ -63,6 +70,9 @@ class LoginPageState extends State<LoginPage> with SingleTickerProviderStateMixi
                               errorStyle: TextStyle(fontSize: 18.0),
                           ),
                           keyboardType: TextInputType.text,
+
+                          controller: _password,
+
                           obscureText: true,
                           validator: (value) {
                             if (value.isEmpty) {
@@ -82,12 +92,23 @@ class LoginPageState extends State<LoginPage> with SingleTickerProviderStateMixi
                           shape: new RoundedRectangleBorder(borderRadius: new BorderRadius.circular(30.0)),
                           child: new Text("Login"),
                           onPressed: () {
+                            var loginUser = new LoginUser(_username.text, _password.text);
+
+                            String json = jsonEncode(loginUser);
+
                             if (_formKey.currentState.validate()) {
                               // often want to call a server or save the information in a database
                               // If the form is filled out, then go to profile page. In reality we need to check the username/password
                               //TODO: Connect login state with backend/database and confirm credentials
                               Navigator.pushNamed(context, '/otherPage');
                             }
+
+                            return showDialog(context: context,
+                                builder: (context) {
+                                  return AlertDialog(
+                                    content: Text(json),
+                                  );
+                                });
 
                           },
                         )

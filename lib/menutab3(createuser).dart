@@ -4,12 +4,12 @@ import 'package:flutter/material.dart';
 import 'user.dart';
 
 
-class MyCustomForm extends StatefulWidget {
+class CreateUserForm extends StatefulWidget {
   @override
    createState() => _MenuTab3();
 }
 
-class _MenuTab3 extends State<MyCustomForm> {
+class _MenuTab3 extends State<CreateUserForm> {
 
   final _username = TextEditingController();
   final _name = TextEditingController();
