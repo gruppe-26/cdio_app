@@ -10,17 +10,17 @@ class CreateUserForm extends StatefulWidget {
 }
 
 class _MenuTab3 extends State<CreateUserForm> {
-
+  final _userID = TextEditingController();
   final _username = TextEditingController();
   final _name = TextEditingController();
   final _initials = TextEditingController();
   final _password = TextEditingController();
+  final _role = TextEditingController();
 
   bool ad = false;
   bool pharma = false;
   bool prod = false;
   bool lab = false;
-  List<String> arrayList;
   String Admin="Admin";
   String Pharmaceut="Pharmaceut";
   String ProductionLeader="Production Leader";
@@ -28,10 +28,12 @@ class _MenuTab3 extends State<CreateUserForm> {
 
   @override
   void dispose() {
+    _userID.dispose();
     _username.dispose();
     _name.dispose();
     _initials.dispose();
     _password.dispose();
+    _role.dispose();
     super.dispose();
   }
 
@@ -56,6 +58,15 @@ class _MenuTab3 extends State<CreateUserForm> {
                       child: new Column(
                         crossAxisAlignment: CrossAxisAlignment.center ,
                         children: <Widget>[
+                          new TextField(
+                            decoration: new InputDecoration(
+                              labelText: "UserID",
+                              hintText: 'Number between 1-100',
+
+                            ),
+                            keyboardType: TextInputType.text,
+                            controller: _userID,
+                          ),
                           new TextField(
                             decoration: new InputDecoration(
                               labelText: "Username",
@@ -119,14 +130,14 @@ class _MenuTab3 extends State<CreateUserForm> {
                             child: new Text("Create User"),
 
                             onPressed: () {
-                              var user = new User(_username.text, _name.text, _initials.text, _password.text);
+                              // var user = new User(_userID,_username.text, _name.text, _initials.text, _password.text, );
 
-                              String json = jsonEncode(user);
+                             //  String json = jsonEncode(user);
 
                               return showDialog(context: context,
                               builder: (context) {
                                 return AlertDialog(
-                                  content: Text(json),
+                               //   content: Text(json),
                                 );
                               });
 
