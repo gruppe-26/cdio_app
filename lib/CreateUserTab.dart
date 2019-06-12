@@ -171,19 +171,11 @@ class _MenuTab3 extends State<CreateUserForm> {
 
                               var user = new User(_userID.text,_username.text, _initials.text, _password.text, roles);
                               addUserToList(user);
-//                              var json = jsonEncode(user);
+                              // var json = jsonEncode(user);
 
 
                               roles.clear();
                               Navigator.pushNamed(context, '/otherPage');
-
-                              return showDialog(context: context,
-                              builder: (context) {
-                                return AlertDialog(
-//                                  content: Text(json),
-                                );
-                              });
-
                             },
                           )
                         ],
