@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 
 //other imports
 import 'loginpage.dart';
-import 'otherPage.dart';
+import 'MenuPage.dart';
 import 'loginUser.dart';
 import 'package:cdio_app/Validator.dart';
 

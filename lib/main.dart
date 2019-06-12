@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
 //other imports
-import 'otherPage.dart';
+import 'MenuPage.dart';
 import 'loginpage.dart';
 
 
