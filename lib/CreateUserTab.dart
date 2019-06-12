@@ -2,7 +2,8 @@ import 'dart:convert';
 import 'package:grouped_buttons/grouped_buttons.dart';
 import 'package:flutter/material.dart';
 import 'user.dart';
-
+import 'package:http/http.dart' as http;
+import 'HTTPcoms.dart';
 
 class CreateUserForm extends StatefulWidget {
   @override
@@ -168,16 +169,18 @@ class _MenuTab3 extends State<CreateUserForm> {
                                 roles.add("Laborant");
                               }
 
-                               var user = new User(_userID.text,_username.text, _initials.text, _password.text, roles);
+                              var user = new User(_userID.text,_username.text, _initials.text, _password.text, roles);
+                              addUserToList(user);
+//                              var json = jsonEncode(user);
 
-                              String json = jsonEncode(user);
+
                               roles.clear();
                               Navigator.pushNamed(context, '/otherPage');
 
                               return showDialog(context: context,
                               builder: (context) {
                                 return AlertDialog(
-                                  content: Text(json),
+//                                  content: Text(json),
                                 );
                               });
 
