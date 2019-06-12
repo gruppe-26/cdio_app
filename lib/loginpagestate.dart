@@ -6,12 +6,11 @@ import 'package:flutter/material.dart';
 import 'loginpage.dart';
 import 'otherPage.dart';
 import 'loginUser.dart';
-
+import 'package:cdio_app/Validator.dart';
 
 class LoginPageState extends State<LoginPage> with SingleTickerProviderStateMixin{
 // Create a global key that will uniquely identify the Form widget and allow us to validate the form
   final _formKey = GlobalKey<FormState>();
-
   final _username = TextEditingController();
   final _password = TextEditingController();
 
@@ -47,9 +46,13 @@ class LoginPageState extends State<LoginPage> with SingleTickerProviderStateMixi
                     child: new Column(
                       crossAxisAlignment: CrossAxisAlignment.center ,
                       children: <Widget>[
-
                         new TextFormField(
                           decoration: new InputDecoration(
+                            border: new OutlineInputBorder(
+                              borderRadius: new BorderRadius.circular(25.0),
+                              borderSide: new BorderSide(
+                              ),
+                            ),
                             labelText: "Enter Username",
                               errorStyle: TextStyle(fontSize: 16.0),
                           ),
@@ -64,10 +67,16 @@ class LoginPageState extends State<LoginPage> with SingleTickerProviderStateMixi
                             return null;
                           },
                         ),
+                        SizedBox(height: 25.0,), // This creates an invisible box that creates a distance between the login fields
                         new TextFormField(
                           decoration: new InputDecoration(
+                            border: new OutlineInputBorder(
+                              borderRadius: new BorderRadius.circular(25.0),
+                              borderSide: new BorderSide(
+                              ),
+                            ),
                             labelText: "Enter Password",
-                              errorStyle: TextStyle(fontSize: 18.0),
+                            errorStyle: TextStyle(fontSize: 18.0),
                           ),
                           keyboardType: TextInputType.text,
 
@@ -90,7 +99,9 @@ class LoginPageState extends State<LoginPage> with SingleTickerProviderStateMixi
                           color: Colors.blueAccent,
                           textColor: Colors.white,
                           shape: new RoundedRectangleBorder(borderRadius: new BorderRadius.circular(30.0)),
-                          child: new Text("Login"),
+                          child: new Text("Login",
+                          style: new TextStyle(fontSize: 18),
+                          ),
                           onPressed: () {
                             var loginUser = new LoginUser(_username.text, _password.text);
 
@@ -124,3 +135,15 @@ class LoginPageState extends State<LoginPage> with SingleTickerProviderStateMixi
     );
   }
 }
+
+class roundBorder{
+  WidgetBuilder(BuildContext context){
+    border: new OutlineInputBorder(
+      borderRadius: new BorderRadius.circular(25.0),
+      borderSide: new BorderSide(
+      ),
+    );
+  }
+}
+
+
