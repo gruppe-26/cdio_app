@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'loginpagestate.dart';
 import 'loginpage.dart';
 
-class MenuTab1 extends StatelessWidget {
+class ProfileTab extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     // TODO: implement build

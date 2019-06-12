@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 
 //next level
-import 'Menutab1(Profile).dart';
-import 'menutab2(science).dart';
-import 'menutab3(createuser).dart';
+import 'ProfileTab.dart';
+import 'ScienceTab.dart';
+import 'CreateUserTab.dart';
 
 class TabBarDemo extends StatelessWidget {
   @override
@@ -42,7 +42,21 @@ class OtherScreen extends StatelessWidget {
         length: 3,
         child: Scaffold(
           appBar: AppBar(
-            title: Text('Aperture Laboratories'),
+            title: Row(
+              mainAxisAlignment: MainAxisAlignment.start,
+              children: [
+                new Image.asset("assets/1280px-Aperture_Laboratories_Logo.png", fit: BoxFit.cover,
+                height: 64,
+                ),
+              ]
+            ),
+            // This removes the back button so that you can only reach the login page by logging out.
+            actions: <Widget>[
+              new IconButton(
+                icon: new Icon(null),
+              ),
+            ],
+            leading: new Container(),
             bottom: TabBar(
               tabs: [
                 Tab(icon: Icon(Icons.account_box),text: "Profile",),
@@ -54,8 +68,8 @@ class OtherScreen extends StatelessWidget {
 
           body: new TabBarView(
             children:<Widget>[ // Each child is the content for each of the 3 tabs.
-              new MenuTab1(),
-              new MenuTab2(),
+              new ProfileTab(),
+              new ScienceTab(),
               new CreateUserForm(),
             ],
           )),
@@ -63,32 +77,3 @@ class OtherScreen extends StatelessWidget {
         );
   }
 }
-
-
-
-
-//TODO : Add validation to form in MenuTab3. Also clean that shit up
-
-
-
-/*
-Below is the original OtherScreen class (Coded by Tobias):
-
-class OtherScreen extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: Text('Other Screen'),
-      ),
-      body: Center(
-        child: RaisedButton(
-            color: Colors.red,
-            child: Text('Go back'),
-            onPressed: () {
-              Navigator.pop(context);
-            }),
-      ),
-    );
-  }
-} */

@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-class MenuTab2 extends StatelessWidget {
+class ScienceTab extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     // TODO: implement build
