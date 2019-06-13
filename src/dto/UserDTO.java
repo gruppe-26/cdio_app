@@ -13,13 +13,15 @@ public class UserDTO implements IUserDTO { // Start of UserDTO class.
     private List<String> roles;
 
     // Constructor
-    public UserDTO(int id, String name, String ini, String pass, List<String> roles) {
+    public UserDTO(int id, String username, String ini, String pass, List<String> roles) {
         this.userId = id;
-        this.userName = name;
+        this.userName = username;
         this.ini = ini;
         this.password = pass;
         this.roles = roles;
     }
+
+
 
     // Getters and Setters
     @Override

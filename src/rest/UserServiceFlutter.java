@@ -22,9 +22,10 @@ public class UserServiceFlutter { // Start på UserService klasse.
     // Dummy data
     static {
         UserDTO user = new UserDTO(1, "Tristan", "TES", "Hund123", new ArrayList<>());
-        users.put(1, new UserDTO(1, "Tristan", "TES", "Hund123", new ArrayList<>(Arrays.asList("Admin", "Moderator"))));
-        users.put(2, new UserDTO(2, "Stig", "SMN", "Kat123", new ArrayList<>(Arrays.asList("Far"))));
-        users.put(3, new UserDTO(3, "mcm", "mc", "pass", new ArrayList<>()));
+        users.put(1, new UserDTO(2, "Tristan", "TES", "Hund123", new ArrayList<>(Arrays.asList("Admin", "Moderator"))));
+        users.put(2, new UserDTO(3, "Stig", "SMN", "Kat123", new ArrayList<>(Arrays.asList("Far"))));
+        users.put(3, new UserDTO(4, "mcm", "mc", "pass", new ArrayList<>()));
+        users.put(4, new UserDTO(5, "d", "mc", "d", new ArrayList<>()));
     }
 
 
@@ -100,5 +101,53 @@ public class UserServiceFlutter { // Start på UserService klasse.
             return Response.status(Status.BAD_REQUEST).entity("Bruger med ID: "+ id +" kan ikke slettes, da den ikke findes.").build();
         }
     }
+
+    @POST
+    @Path("{login}")
+    @Produces(MediaType.TEXT_PLAIN)
+    public Response loginConfirmation(String loginbody)  throws InvalidIdException {
+        JSONObject jsonObject = new JSONObject(loginbody);
+        System.out.println("HI"+users.size());
+        System.out.println("loginbody: "+loginbody);
+
+        UserDTO loginUser = new UserDTO(1,jsonObject.getString("userName"),"ini",jsonObject.getString("password"),new ArrayList<>(Arrays.asList("Admin", "Moderator")));
+        System.out.println("Username: "+loginUser.getUserName());
+        System.out.println("password: "+loginUser.getPassword());
+        System.out.println("Username of backend: "+users.get(4).getUserName());
+        System.out.println("PAssword of backend: "+users.get(4).getPassword());
+        boolean b = false;
+        for(int i = 0; i<users.size(); i++){
+            System.out.println(i);
+            if(users.get(i).getUserName()==loginUser.getUserName() &&
+                    users.get(i).getPassword()==loginUser.getPassword()){
+                b = true;
+                System.out.println("User found");
+
+                // Login succesful!!
+            }
+            else{
+
+            }
+        }
+        if(b==true){
+            System.out.println("USer found");
+            return Response
+                    .status(200)
+                    .type("application/json; charset=utf-8")
+                    .header("Status", 200 + " OK")
+                    .header("Access-Control-Allow-Origin", "*")
+                    .header("Access-Control-Allow-Credentials", true)
+                    .header("X-Frame-Options", "SAMEORIGIN")
+                    .header("X-XSS-Protection", "1; mode=block")
+                    .header("X-Content-Type-Options", "nosniff")
+                    .header("Connection", "keep-alive")
+                    .entity(loginbody)
+                    .build();
+        }
+        else{
+            System.out.println("User not found");
+            throw new InvalidIdException("Bruger ikke fundet");        }
+    }
+
 
 } // Slut på UserService klasse.
