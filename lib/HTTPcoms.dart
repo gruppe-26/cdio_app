@@ -6,10 +6,7 @@ import 'package:http/http.dart' as http;
 import 'package:flutter/foundation.dart';
 //import 'dart:io';
 
-String SERVER_URL = "http://192.168.0.18:8080/rest/userFlutter";
-
-//Socket socket;
-
+String SERVER_URL = "http://10.16.172.159:8080/rest/userFlutter";
 // Add/create user (@POST)
 Future<dynamic> addUserToList(User user) async {
 
@@ -29,8 +26,8 @@ requestMethod({String url, User data}) async {
       .post(url, body: body, headers: headers)
       .catchError((error) => print(error.toString()));
   print("wuhu!");
-  final responseJson = json.decode(response.body);
-  print(responseJson);
+ // final responseJson = json.decode(response.body);
+  // print(responseJson);
 
   return response;
 } // end of add/create user
