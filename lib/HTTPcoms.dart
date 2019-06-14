@@ -1,14 +1,14 @@
 import 'dart:convert';
 import 'dart:async';
 import 'dart:convert' as prefix0;
-
 import 'package:cdio_app/loginUser.dart';
 import 'package:cdio_app/user.dart';
 import 'package:http/http.dart' as http;
 import 'package:flutter/foundation.dart';
-//import 'dart:io';
-
-String SERVER_URL = "http://192.168.1.95:8080/rest/userFlutter";
+import 'package:flutter/material.dart';
+import 'MenuPage.dart';
+import 'loginpagestate.dart';
+String SERVER_URL = "http://192.168.161.65:8080/rest/userFlutter";
 // Add/create user (@POST)
 Future<dynamic> addUserToList(User user) async {
 
@@ -30,15 +30,8 @@ requestMethod({String url, User data}) async {
   print("wuhu!");
  // final responseJson = json.decode(response.body);
   // print(responseJson);
-
   return response;
 } // end of add/create user
-
-
-//void main() {
-//  //Connect standard in to the socket
-//  stdin.listen((data) => socket.write(new String.fromCharCodes(data).trim() + '\n'));
-//}
 
 
 // Get specific user with id (@GET)
@@ -73,30 +66,30 @@ List<User> parseUsers(String responseBody) {
   return parsed.map<User>((json) => User.fromJson(json)).toList();
 }
 
-Future<bool> checkLogin(User loginUser) async {
-  final response = requestLoginMethod(url: SERVER_URL+"/"+"login", data: loginUser);
-  if (response.statusCode == 200) {
-    return true;
-  } else {
-    // If that response was not OK, throw an error.
-    return false;
-  }
-}
 
-  requestLoginMethod({String url, User data}) async {
-    var body = json.encode(data);
-    print("tilføjer ny user: "+body);
+
+
+  Future<int> checkLogin(User loginUser) async {
+    var body = json.encode(loginUser);
     Map<String, String> headers = {
       'Content-type': 'application/json',
     };
-    print("doing stuff");
     final response = await http
-        .post(url, body: body, headers: headers)
+        .post(SERVER_URL+'/login', body: body, headers: headers)
         .catchError((error) => print(error.toString()));
-    print("wuhu!");
-    // final responseJson = json.decode(response.body);
-    // print(responseJson);
+    print(response.body);
+    if(response.statusCode == 200){
+      print("Success! Status code is:");
+    // print(response.statusCode);
 
-    return response;
-  } // end of add/create user
+      return 200;
+    }
+    else{
+      print('Login information incorrect');
+      return 0;
+    }
+  }
+
+
+
 

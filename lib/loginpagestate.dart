@@ -4,13 +4,14 @@ import 'package:cdio_app/user.dart';
 import 'package:flutter/material.dart';
 
 //other imports
+
 import 'loginpage.dart';
 import 'MenuPage.dart';
 import 'loginUser.dart';
 import 'package:cdio_app/Validator.dart';
 import 'HTTPcoms.dart';
 
-class LoginPageState extends State<LoginPage> with SingleTickerProviderStateMixin{
+class LoginPageState extends State<LoginPage> with SingleTickerProviderStateMixin {
 // Create a global key that will uniquely identify the Form widget and allow us to validate the form
   final _formKey = GlobalKey<FormState>();
   final _username = TextEditingController();
@@ -104,17 +105,19 @@ class LoginPageState extends State<LoginPage> with SingleTickerProviderStateMixi
                           child: new Text("Login",
                           style: new TextStyle(fontSize: 18),
                           ),
-                          onPressed: () {
-                            var loginUser = new LoginUser(_username.text, _password.text);
-                            var u = new User(null,_username.text,null,_password.text,null);
+                          onPressed: () async {
+                            var loginUser = new User(null,_username.text,null,_password.text,null);
                             if (_formKey.currentState.validate()) {
                               // often want to call a server or save the information in a database
                               // If the form is filled out, then go to profile page. In reality we need to check the username/password
-                              //TODO: Connect login state with backend/database and confirm credentials
-
-                              if(checkLogin(u)==true){
+                              var tal = await checkLogin(loginUser);
+                              if(tal==200){
+                                print("Her har vi tallet: ");
                                 Navigator.pushNamed(context, '/otherPage');
-                                }
+                              }
+                              else{
+                                print("Fejl");
+                              }
                             }
                           },
                         )
@@ -130,6 +133,7 @@ class LoginPageState extends State<LoginPage> with SingleTickerProviderStateMixi
     );
   }
 }
+
 
 class roundBorder{
   WidgetBuilder(BuildContext context){

@@ -114,23 +114,18 @@ public class UserServiceFlutter { // Start på UserService klasse.
         System.out.println("Username: "+loginUser.getUserName());
         System.out.println("password: "+loginUser.getPassword());
         System.out.println("Username of backend: "+users.get(4).getUserName());
-        System.out.println("PAssword of backend: "+users.get(4).getPassword());
+        System.out.println("Password of backend: "+users.get(4).getPassword());
         boolean b = false;
-        for(int i = 0; i<users.size(); i++){
+        for(int i = 1; i<=users.size(); i++){
             System.out.println(i);
-            if(users.get(i).getUserName()==loginUser.getUserName() &&
-                    users.get(i).getPassword()==loginUser.getPassword()){
+            if(users.get(i).getUserName().equals(loginUser.getUserName()) &&
+                    users.get(i).getPassword().equals(loginUser.getPassword())){
                 b = true;
-                System.out.println("User found");
-
-                // Login succesful!!
-            }
-            else{
-
+                System.out.println("User found!");
             }
         }
         if(b==true){
-            System.out.println("USer found");
+            System.out.println("Returning success statement");
             return Response
                     .status(200)
                     .type("application/json; charset=utf-8")
