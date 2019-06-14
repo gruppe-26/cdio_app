@@ -8,6 +8,7 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'MenuPage.dart';
 import 'loginpagestate.dart';
+// TODO: CHANGE URL DEPENDING ON WHAT NETWORK YOU ARE ON!!
 String SERVER_URL = "http://192.168.161.65:8080/rest/userFlutter";
 // Add/create user (@POST)
 Future<dynamic> addUserToList(User user) async {

@@ -112,11 +112,11 @@ class LoginPageState extends State<LoginPage> with SingleTickerProviderStateMixi
                               // If the form is filled out, then go to profile page. In reality we need to check the username/password
                               var tal = await checkLogin(loginUser);
                               if(tal==200){
-                                print("Her har vi tallet: ");
+                                //TODO: Create login waiting animation
                                 Navigator.pushNamed(context, '/otherPage');
                               }
                               else{
-                                print("Fejl");
+
                               }
                             }
                           },
@@ -145,4 +145,16 @@ class roundBorder{
   }
 }
 
-
+class SnackBarMessage extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return MaterialApp(
+      title: 'SnackBar Message',
+      home: Scaffold(
+        appBar: AppBar(
+          title: Text('SnackBar Message '),
+        ),
+      ),
+    );
+  }
+}
