@@ -68,7 +68,7 @@ class OtherScreen extends StatelessWidget {
 
           body: new TabBarView(
             children:<Widget>[ // Each child is the content for each of the 3 tabs.
-              new ProfileTab(),
+              new ProfilTab(),
               new ScienceTab(),
               new CreateUserForm(),
             ],

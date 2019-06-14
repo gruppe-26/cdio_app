@@ -44,6 +44,7 @@ flutter:
 
   # To add assets to your application, add an assets section, like this:
   assets:
+    - assets/default-user-image.png
     - assets/laboratoryPlaceholder.png
     - assets/ApertureScienceLogo.png
     - assets/PortalLogo.jpg
