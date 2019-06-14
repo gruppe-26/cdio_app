@@ -107,14 +107,8 @@ public class UserServiceFlutter { // Start på UserService klasse.
     @Produces(MediaType.TEXT_PLAIN)
     public Response loginConfirmation(String loginbody)  throws InvalidIdException {
         JSONObject jsonObject = new JSONObject(loginbody);
-        System.out.println("HI"+users.size());
         System.out.println("loginbody: "+loginbody);
-
         UserDTO loginUser = new UserDTO(1,jsonObject.getString("userName"),"ini",jsonObject.getString("password"),new ArrayList<>(Arrays.asList("Admin", "Moderator")));
-        System.out.println("Username: "+loginUser.getUserName());
-        System.out.println("password: "+loginUser.getPassword());
-        System.out.println("Username of backend: "+users.get(4).getUserName());
-        System.out.println("Password of backend: "+users.get(4).getPassword());
         boolean b = false;
         for(int i = 1; i<=users.size(); i++){
             System.out.println(i);
@@ -144,5 +138,38 @@ public class UserServiceFlutter { // Start på UserService klasse.
             throw new InvalidIdException("Bruger ikke fundet");        }
     }
 
-
+//    @GET
+//    @Path("{username}") // parameter
+//    @Produces(MediaType.TEXT_PLAIN)
+//    public UserDTO getUser(@PathParam("username") String username) {
+//        System.out.println("Fetching userdata from username: "+username);
+//        for(int i = 1; i<=users.size(); i++){
+//            if(users.get(i).getUserName().equals(username)){
+//                System.out.println("User found!");
+//                return users.get(i);
+//            }
+//        }
+//        return null;
+//    }
 } // Slut på UserService klasse.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

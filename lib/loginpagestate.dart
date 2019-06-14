@@ -112,7 +112,10 @@ class LoginPageState extends State<LoginPage> with SingleTickerProviderStateMixi
                               // If the form is filled out, then go to profile page. In reality we need to check the username/password
                               var tal = await checkLogin(loginUser);
                               if(tal==200){
-                                //TODO: Create login waiting animation
+                                //TODO: Get all the user info of the validated account
+                                String username = _username.text;
+                                // var currentAccountBody = await getUserFromName(username);
+
                                 Navigator.pushNamed(context, '/otherPage');
                               }
                               else{

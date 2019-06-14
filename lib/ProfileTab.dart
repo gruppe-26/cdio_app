@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 
 import 'loginpagestate.dart';
 import 'loginpage.dart';
-
+import 'loginpagestate.dart';
 class ProfilTab extends StatefulWidget {
   // Using statefulwidget because we will use animations
   @override
@@ -111,6 +111,10 @@ class ProfileTabst extends State<ProfilTab>
       ],
     );
   }
+}
+
+class getUsername extends LoginPageState{
+
 }
 
 class getClipper extends CustomClipper<Path> {

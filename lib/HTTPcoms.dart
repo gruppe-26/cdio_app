@@ -81,7 +81,7 @@ List<User> parseUsers(String responseBody) {
     print(response.body);
     if(response.statusCode == 200){
       print("Success! Status code is:");
-    // print(response.statusCode);
+      print(response.statusCode);
 
       return 200;
     }
@@ -90,6 +90,19 @@ List<User> parseUsers(String responseBody) {
       return 0;
     }
   }
+
+Future<User> getUserFromName(String username) async {
+  final response = await http.get(SERVER_URL+"/"+username); //server url + /username
+  if (response.statusCode == 200) {
+    // If server returns an OK(200) response, parse the JSON.
+    print("Here is the account: ");
+    print(response.toString());
+    return User.fromJson(jsonDecode(response.body));
+  } else {
+    // If that response was not OK, throw an error.
+    throw Exception('Failed to load user');
+  }
+}
 
 
 
