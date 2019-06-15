@@ -15,14 +15,7 @@ class User {
 
   // Metoder, hvor vi selv står for serialiseringen/konverteringen til JSON-format.
 
-  // .Json constructor, til at konstruere en ny 'User' instans ud fra en Map-struktur.
-//  User.fromJson(Map<String, dynamic> json)
-//      : userId = json['userId'],
-//        userName = json['userName'],
-//        ini = json['ini'],
-//        password = json['password'],
-//        roles = json['cast'];
-
+  // fromJson metode. Returnerer en user ud fra en Map<String, dynamic>, hvor K=String(fieldNavn), og V=dynamic(datatypen, kan være int, String, List<String> i vores tilfælde).
   factory User.fromJson(Map<String, dynamic> parsedJson) {
     var rolesFromJson = parsedJson['roles'];
     List<String> rolesList = rolesFromJson.cast<String>();
@@ -54,26 +47,26 @@ class User {
 }
 
 // Main til at teste. Brug evt. Dartpad(https://dartpad.dartlang.org/) i stedet.
-void main () {
-  print('Velkommen til: Bruger til JSON-testing \n');
-
-//  List<String> roller = ["Admin", "Pharmaceut"]; //denne er "growable".
-  List<String> roller = new List<String>(); //denne er også "growable".
-  roller.add("Admin");
-  roller.add("Pharmaceut");
-  User bruger = new User(4, "Dragonslayer69", "TES", "Hundkat123", roller);
-
-  print("-----");
-  print("Print af roller: ");
-  print(roller);
-  print("-----");
-  print("Print via bruger toString() -metode:");
-  print(bruger); // det er jo bare toString()-metoden for objektet der kaldes, når man printer et objekt.
-  print("-----");
-  print("Print efter jsonEncode() -metodde:");
-  var userJSON = jsonEncode(bruger); //jsonEncode kigger på objektets selvdefinerede metoder(fromJson, toJson) til konvertering til JSON.
-  print(userJSON);
-  print("-----");
-}
+//void main () {
+//  print('Velkommen til: Bruger til JSON-testing \n');
+//
+////  List<String> roller = ["Admin", "Pharmaceut"]; //denne er "growable".
+//  List<String> roller = new List<String>(); //denne er også "growable".
+//  roller.add("Admin");
+//  roller.add("Pharmaceut");
+//  User bruger = new User(4, "Dragonslayer69", "TES", "Hundkat123", roller);
+//
+//  print("-----");
+//  print("Print af roller: ");
+//  print(roller);
+//  print("-----");
+//  print("Print via bruger toString() -metode:");
+//  print(bruger); // det er jo bare toString()-metoden for objektet der kaldes, når man printer et objekt.
+//  print("-----");
+//  print("Print efter jsonEncode() -metodde:");
+//  var userJSON = jsonEncode(bruger); //jsonEncode kigger på objektets selvdefinerede metoder(fromJson, toJson) til konvertering til JSON.
+//  print(userJSON);
+//  print("-----");
+//}
 
 // Note/dokumentation: https://flutter.dev/docs/development/data-and-backend/json#serializing-json-inside-model-classes
