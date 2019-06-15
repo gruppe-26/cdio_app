@@ -170,12 +170,16 @@ class _MenuTab3 extends State<CreateUserForm> {
                               }
 
                               User user = new User(int.parse(_userID.text),_username.text, _initials.text, _password.text, roles);
-                              addUserToList(user);
+                              await addUser(user);
 
                               User userGotten = await getUser(1);
                               print("Den hentede bruger var: "+userGotten.toString());
                               List<User> userList= await getUsersAll();
-                              print("Her er en liste over alle brugere:\n"+userList.toString());
+                              print("Her er en liste over alle brugere: ");
+                              for(var i=0; i < userList.length; i++)
+                                {
+                                  print(userList[i]);
+                                }
 
                               roles.clear();
                               Navigator.pushNamed(context, '/otherPage');

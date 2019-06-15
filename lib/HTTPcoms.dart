@@ -14,24 +14,27 @@ String SERVER_URL = "http://192.168.0.18:8080/rest/userFlutter";
 
 
 // Add/create user (@POST)
-Future<dynamic> addUserToList(User user) async {
+Future<dynamic> addUser(User user) async {
   return requestMethod(
       url: SERVER_URL, data: user);
 }
 // Helping methods for add/create user.
 requestMethod({String url, User data}) async {
   var body = json.encode(data);
-  print("tilføjer ny user: "+body);
+  print("Forsøger at tilføje ny bruger:\n"+body);
   Map<String, String> headers = {
     'Content-type': 'application/json',
   };
-  print("doing stuff");
   final response = await http
       .post(url, body: body, headers: headers)
       .catchError((error) => print(error.toString()));
-  print("wuhu!");
- // final responseJson = json.decode(response.body);
-  // print(responseJson);
+  if(response.statusCode == 200)
+    {
+      print("Bruger tilføjet. Det gik godt!");
+    }
+    else {
+      print("Noget gik galt. Tjek backend-terminal");
+  }
   return response;
 } // end of add/create user
 
