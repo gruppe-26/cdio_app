@@ -39,8 +39,31 @@ public class UserServiceFlutter { // Start på UserService klasse.
     // Getter specifik bruger.
     // Postman GET eksempel ***  http://localhost:8080/Lektion12/rest/user/2
     @GET
-    @Path("{id}") // parameter
-    public UserDTO getUser(@PathParam("id") int id) { return users.get(id); }
+    @Path("{username}") // parameter
+    @Produces(MediaType.TEXT_PLAIN)
+    public Response getUser(@PathParam("username") String username) {
+        System.out.println("CONTACT BUCKO: "+username);
+        for(int i = 1; i<=users.size();i++){
+            if(username.equals(users.get(i).getUserName())){
+                JSONObject jsonObject = new JSONObject(users.get(i));
+                System.out.println(users.get(i).toString());
+                System.out.println("get body: "+jsonObject);
+                return Response
+                        .status(200)
+                        .type("application/json; charset=utf-8")
+                        .header("Status", 200 + " OK")
+                        .header("Access-Control-Allow-Origin", "*")
+                        .header("Access-Control-Allow-Credentials", true)
+                        .header("X-Frame-Options", "SAMEORIGIN")
+                        .header("X-XSS-Protection", "1; mode=block")
+                        .header("X-Content-Type-Options", "nosniff")
+                        .header("Connection", "keep-alive")
+                        .entity(users.get(i).toString())
+                        .build();
+            }
+        }
+    return null;
+    }
 
 
     @POST

@@ -36,11 +36,17 @@ requestMethod({String url, User data}) async {
 
 
 // Get specific user with id (@GET)
-Future<User> getUser(int id) async {
-  final response = await http.get(SERVER_URL+"/"+id.toString()); //server url + /id
+Future<User> getUser(String username) async {
+  final response = await http.get(SERVER_URL+"/"+username); //server url + /id
+  print("Response: ");
+  print(response.body);
+  print(response.statusCode);
   if (response.statusCode == 200) {
     // If server returns an OK(200) response, parse the JSON.
-    return User.fromJson(jsonDecode(response.body));
+    print('Found the body of '+username);
+    print(response.body);
+    User loggedIn = new User response.body;
+    return response.body;
   } else {
     // If that response was not OK, throw an error.
     throw Exception('Failed to load user');

@@ -1,6 +1,5 @@
 package dto;
 
-import java.util.ArrayList;
 import java.util.List;
 
 public class UserDTO implements IUserDTO { // Start of UserDTO class.
@@ -83,13 +82,13 @@ public class UserDTO implements IUserDTO { // Start of UserDTO class.
     // UserDTO toString method
     @Override
     public String toString() {
-        return "UserDTO{" +
-                "userId=" + userId +
-                ", userName='" + userName + '\'' +
-                ", ini='" + ini + '\'' +
-                ", password='" + password + '\'' +
-                ", roles=" + roles +
-                '}';
+        return "{" +
+                "\"userId\":\"" + userId +
+                "\",\"userName\":\"" + userName +
+                "\",\"ini\":\"" + ini +
+                "\",\"password\":\"" + password +
+                "\",\"roles\":\"" + roles + "\"}";
     }
+
 
 } // End of UserDTO class.

@@ -111,15 +111,18 @@ class LoginPageState extends State<LoginPage> with SingleTickerProviderStateMixi
                               // often want to call a server or save the information in a database
                               // If the form is filled out, then go to profile page. In reality we need to check the username/password
                               var tal = await checkLogin(loginUser);
+                              print("HER ER TALLET: ");
+                              print(tal);
                               if(tal==200){
                                 //TODO: Get all the user info of the validated account
-                                String username = _username.text;
                                 // var currentAccountBody = await getUserFromName(username);
-
+                                User loggedIn = await getUser(_username.text);
+                                print("Success. Loading the user information: ");
+                                print(loggedIn);
                                 Navigator.pushNamed(context, '/otherPage');
                               }
                               else{
-
+                                Text('Username and/or Password is incorrect');
                               }
                             }
                           },
