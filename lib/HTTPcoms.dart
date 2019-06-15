@@ -8,14 +8,16 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'MenuPage.dart';
 import 'loginpagestate.dart';
-String SERVER_URL = "http://192.168.161.65:8080/rest/userFlutter";
+
+
+String SERVER_URL = "http://192.168.0.18:8080/rest/userFlutter";
+
+
 // Add/create user (@POST)
 Future<dynamic> addUserToList(User user) async {
-
   return requestMethod(
       url: SERVER_URL, data: user);
 }
-
 // Helping methods for add/create user.
 requestMethod({String url, User data}) async {
   var body = json.encode(data);
@@ -34,12 +36,19 @@ requestMethod({String url, User data}) async {
 } // end of add/create user
 
 
+
+
 // Get specific user with id (@GET)
 Future<User> getUser(int id) async {
+  print("brugerID der prøves at hentes: "+id.toString());
   final response = await http.get(SERVER_URL+"/"+id.toString()); //server url + /id
   if (response.statusCode == 200) {
     // If server returns an OK(200) response, parse the JSON.
-    return User.fromJson(jsonDecode(response.body));
+//    var data = response.body;
+//    print("response body: "+data); //så printer den en jsonEncoded user.
+    var userMap = jsonDecode(response.body); // jsonDecode laver json-strengen til en Map<String, dynamic>,
+    var user = User.fromJson(userMap); // Herefter laver User.fromJson-metoden en User ud fra denne Map(se hvordan i User).
+    return user;
   } else {
     // If that response was not OK, throw an error.
     throw Exception('Failed to load user');
@@ -69,26 +78,25 @@ List<User> parseUsers(String responseBody) {
 
 
 
-  Future<int> checkLogin(User loginUser) async {
-    var body = json.encode(loginUser);
-    Map<String, String> headers = {
-      'Content-type': 'application/json',
-    };
-    final response = await http
-        .post(SERVER_URL+'/login', body: body, headers: headers)
-        .catchError((error) => print(error.toString()));
-    print(response.body);
-    if(response.statusCode == 200){
-      print("Success! Status code is:");
+Future<int> checkLogin(User loginUser) async {
+  var body = json.encode(loginUser);
+  Map<String, String> headers = {
+    'Content-type': 'application/json',
+  };
+  final response = await http
+      .post(SERVER_URL + '/login', body: body, headers: headers)
+      .catchError((error) => print(error.toString()));
+  print(response.body);
+  if (response.statusCode == 200) {
+    print("Success! Status code is:");
     // print(response.statusCode);
-
-      return 200;
-    }
-    else{
-      print('Login information incorrect');
-      return 0;
-    }
+    return 200;
   }
+  else {
+    print('Login information incorrect');
+    return 0;
+  }
+}
 
 
 

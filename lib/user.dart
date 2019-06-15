@@ -4,7 +4,7 @@ import 'dart:convert'; //importeres for at kunne bruge jsonEncode herinde.
 // User  model/class
 class User {
   // Fields
-  String userId;
+  int userId;
   String userName;
   String ini;
   String password;
@@ -16,12 +16,24 @@ class User {
   // Metoder, hvor vi selv står for serialiseringen/konverteringen til JSON-format.
 
   // .Json constructor, til at konstruere en ny 'User' instans ud fra en Map-struktur.
-  User.fromJson(Map<String, dynamic> json)
-      : userId = json['userId'],
-        userName = json['userName'],
-        ini = json['ini'],
-        password = json['password'],
-        roles = json['roles'];
+//  User.fromJson(Map<String, dynamic> json)
+//      : userId = json['userId'],
+//        userName = json['userName'],
+//        ini = json['ini'],
+//        password = json['password'],
+//        roles = json['cast'];
+
+  factory User.fromJson(Map<String, dynamic> parsedJson) {
+    var rolesFromJson = parsedJson['roles'];
+    List<String> rolesList = rolesFromJson.cast<String>();
+    User user = new User(
+        parsedJson['userId'],
+        parsedJson['userName'],
+        parsedJson['ini'],
+        parsedJson['password'],
+        rolesList);
+    return user;
+  }
 
   // toJson() metode, til at konvertere en 'User' instans til en Map-struktur.
   Map<String, dynamic> toJson() => {
@@ -32,12 +44,12 @@ class User {
     'roles': roles,
   };
 
+  // toString metode. Autogenereret. Primært til testning.
   @override
   String toString() {
     return 'User{userId: $userId, userName: $userName, ini: $ini, password: $password, roles: $roles}';
   }
 
-// toString metode. Autogenereret. Primært til testning.
 
 }
 
@@ -49,7 +61,7 @@ void main () {
   List<String> roller = new List<String>(); //denne er også "growable".
   roller.add("Admin");
   roller.add("Pharmaceut");
-  User bruger = new User("4", "Dragonslayer69", "TES", "Hundkat123", roller);
+  User bruger = new User(4, "Dragonslayer69", "TES", "Hundkat123", roller);
 
   print("-----");
   print("Print af roller: ");

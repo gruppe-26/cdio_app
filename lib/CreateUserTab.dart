@@ -151,7 +151,7 @@ class _MenuTab3 extends State<CreateUserForm> {
                             shape: new RoundedRectangleBorder(borderRadius: new BorderRadius.circular(30.0)),
                             child: new Text("Create User"),
 
-                            onPressed: () {
+                            onPressed: () async {
 
                               if(checkbox1 == true){
                                 roles.add("Admin");
@@ -169,10 +169,13 @@ class _MenuTab3 extends State<CreateUserForm> {
                                 roles.add("Laborant");
                               }
 
-                              var user = new User(_userID.text,_username.text, _initials.text, _password.text, roles);
+                              User user = new User(int.parse(_userID.text),_username.text, _initials.text, _password.text, roles);
                               addUserToList(user);
-                              // var json = jsonEncode(user);
 
+                              User userGotten = await getUser(1);
+                              print("Den hentede bruger var: "+userGotten.toString());
+                              List<User> userList= await getUsersAll();
+                              print("Her er en liste over alle brugere:\n"+userList.toString());
 
                               roles.clear();
                               Navigator.pushNamed(context, '/otherPage');

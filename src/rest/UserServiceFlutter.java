@@ -1,7 +1,10 @@
 package rest;
 
+import android.annotation.TargetApi;
+import android.os.Build;
 import dto.UserDTO;
 import org.json.JSONArray;
+import org.json.JSONException;
 import org.json.JSONObject;
 
 import javax.ws.rs.*;
@@ -21,11 +24,10 @@ public class UserServiceFlutter { // Start på UserService klasse.
     static Map<Integer, UserDTO> users = new HashMap<>();
     // Dummy data
     static {
-        UserDTO user = new UserDTO(1, "Tristan", "TES", "Hund123", new ArrayList<>());
-        users.put(1, new UserDTO(2, "Tristan", "TES", "Hund123", new ArrayList<>(Arrays.asList("Admin", "Moderator"))));
-        users.put(2, new UserDTO(3, "Stig", "SMN", "Kat123", new ArrayList<>(Arrays.asList("Far"))));
-        users.put(3, new UserDTO(4, "mcm", "mc", "pass", new ArrayList<>()));
-        users.put(4, new UserDTO(5, "d", "mc", "d", new ArrayList<>()));
+        users.put(1, new UserDTO(1, "Tristan", "TES", "Hund123", new ArrayList<>(Arrays.asList("Admin", "Moderator"))));
+        users.put(2, new UserDTO(2, "Stig", "SMN", "Kat123", new ArrayList<>(Arrays.asList("Far"))));
+        users.put(3, new UserDTO(3, "mcm", "mc", "pass", new ArrayList<>()));
+        users.put(4, new UserDTO(4, "d", "mc", "d", new ArrayList<>()));
     }
 
 
@@ -43,13 +45,14 @@ public class UserServiceFlutter { // Start på UserService klasse.
     public UserDTO getUser(@PathParam("id") int id) { return users.get(id); }
 
 
+    @TargetApi(Build.VERSION_CODES.N)
     @POST
     @Produces(MediaType.TEXT_PLAIN)
-    public Response addUserDTOJson(String body) throws InvalidIdException {
+    public Response addUserDTOJson(String body) throws InvalidIdException, JSONException {
         System.out.println("Tilføjer indhold...");
         JSONObject jsonObject = new JSONObject(body);
 
-        // roles håndteres fra JSONarray til Java ArrayList. Akavet måde?
+        // roles håndteres fra JSONarray til Java ArrayList.
         ArrayList<String> roles = new ArrayList<String>();
         JSONArray jArray = jsonObject.getJSONArray("roles");
         if (jArray != null) {
@@ -105,7 +108,7 @@ public class UserServiceFlutter { // Start på UserService klasse.
     @POST
     @Path("{login}")
     @Produces(MediaType.TEXT_PLAIN)
-    public Response loginConfirmation(String loginbody)  throws InvalidIdException {
+    public Response loginConfirmation(String loginbody) throws InvalidIdException, JSONException {
         JSONObject jsonObject = new JSONObject(loginbody);
         System.out.println("HI"+users.size());
         System.out.println("loginbody: "+loginbody);
