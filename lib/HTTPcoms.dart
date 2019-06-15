@@ -33,7 +33,7 @@ requestMethod({String url, User data}) async {
       print("Bruger tilføjet. Det gik godt!");
     }
     else {
-      print("Noget gik galt. Tjek backend-terminal");
+      print("Noget gik galt. BrugerID eksisterer allerede. Tjek backend-terminal");
   }
   return response;
 } // end of add/create user
@@ -70,13 +70,30 @@ Future<List<User>> getUsersAll() async {
     throw Exception('Failed to load user');
   }
 }
-
 // A helping function for getUsersAll to convert a response body into a List<User>.
 List<User> parseUsers(String responseBody) {
   // Caster til en Map<String, dynamic>, da responseBody-JSON'en, egentlig er en Liste af disse User-Maps.
   final parsed = jsonDecode(responseBody).cast<Map<String, dynamic>>();
   return parsed.map<User>((json) => User.fromJson(json)).toList();
 }
+
+
+Future<dynamic> deleteUser(int id) async {
+  final response = await http.delete(SERVER_URL+"/"+id.toString());
+  print("Nu forsøges bruger med id: "+id.toString()+", at slettes...");
+  if (response.statusCode == 200)
+    {
+      print("Delete statuscode 200 var true");
+      print(response.body); // besked defineret i @delete i backend
+    } else {
+    print("Delete statuscode 200 var falsk");
+    print(response.body); //besked defineret i @delete i backend
+  }
+}
+
+
+
+
 
 
 
