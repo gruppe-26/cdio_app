@@ -16,7 +16,9 @@ class UserDetailScreen extends StatelessWidget {
       ),
       body: Padding(
         padding: EdgeInsets.all(16.0),
-        child: Text("ID: " +
+
+        child:
+        Text("ID: " +
             user.userId.toString() +
             "\nName: " +
             user.userName +

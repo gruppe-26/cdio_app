@@ -1,8 +1,12 @@
 import 'package:cdio_app/loginpagestate.dart' as prefix0;
 import 'package:flutter/material.dart';
-
+import 'Controller.dart';
 import 'package:cdio_app/loginpagestate.dart';
 import 'loginpage.dart';
+import 'user.dart';
+
+Controller c = new Controller();
+
 class ProfilTab extends StatefulWidget {
   @override
   State createState() => new ProfileTabst();
@@ -12,7 +16,19 @@ class ProfilTab extends StatefulWidget {
 
 class ProfileTabst extends State<ProfilTab>
     with SingleTickerProviderStateMixin {
+  User _currentUser;
+  @override
+  void initState(){
+    super.initState();
+    _fetchUser();
+  }
 
+  _fetchUser() {
+    User user = c.getUser();
+    setState(() {
+      _currentUser = user;
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -48,14 +64,14 @@ class ProfileTabst extends State<ProfilTab>
 
                 //brugernavn og rolle
                 Text(
-                  'brugernavn',
+                  _currentUser.userName.toString(),
                   style: TextStyle(
                     fontSize: 23.0,
                   ),
                 ),
                 SizedBox(height: 10.0),
                 Text(
-                  'rolle',
+                  'Roles: '+_currentUser.roles.toString(),
                   style: TextStyle(
                     fontSize: 13.0,
                     fontStyle: FontStyle.italic,

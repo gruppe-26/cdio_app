@@ -12,13 +12,18 @@ import 'user.dart';
 import 'HTTPcoms.dart';
 
 class Controller {
-
   Controller();
+
+  static User currentUser;
 
   Future<User> logIn(User loginUser) async{
     User loggedInUser = await checkLogin(loginUser); // Receive user from server
-
+    currentUser = loggedInUser;
     return loggedInUser;
+  }
+
+  User getUser(){
+    return currentUser;
   }
 
   Future<List<User>> getUserList() async{
@@ -26,6 +31,8 @@ class Controller {
     print(userList.toString());
     return userList;
   }
+
+
 
 }
 
