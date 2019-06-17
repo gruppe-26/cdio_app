@@ -8,45 +8,50 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'MenuPage.dart';
 import 'loginpagestate.dart';
-// TODO: CHANGE URL DEPENDING ON WHAT NETWORK YOU ARE ON!!
-String SERVER_URL = "http://192.168.161.65:8080/rest/userFlutter";
-// Add/create user (@POST)
-Future<dynamic> addUserToList(User user) async {
 
+
+String SERVER_URL = "http://192.168.0.18:8080/rest/userFlutter";
+
+
+// Add/create user (@POST)
+Future<dynamic> addUser(User user) async {
   return requestMethod(
       url: SERVER_URL, data: user);
 }
-
 // Helping methods for add/create user.
 requestMethod({String url, User data}) async {
   var body = json.encode(data);
-  print("tilføjer ny user: "+body);
+  print("Forsøger at tilføje ny bruger:\n"+body);
   Map<String, String> headers = {
     'Content-type': 'application/json',
   };
-  print("doing stuff");
   final response = await http
       .post(url, body: body, headers: headers)
       .catchError((error) => print(error.toString()));
-  print("wuhu!");
- // final responseJson = json.decode(response.body);
-  // print(responseJson);
+  if(response.statusCode == 200)
+    {
+      print("Bruger tilføjet. Det gik godt!");
+    }
+    else {
+      print("Noget gik galt. BrugerID eksisterer allerede. Tjek backend-terminal");
+  }
   return response;
 } // end of add/create user
 
 
+
+
 // Get specific user with id (@GET)
-Future<User> getUser(String username) async {
-  final response = await http.get(SERVER_URL+"/"+username); //server url + /id
-  print("Response: ");
-  print(response.body);
-  print(response.statusCode);
+Future<User> getUser(int id) async {
+  print("brugerID der prøves at hentes: "+id.toString());
+  final response = await http.get(SERVER_URL+"/"+id.toString()); //server url + /id
   if (response.statusCode == 200) {
     // If server returns an OK(200) response, parse the JSON.
-    print('Found the body of '+username);
-    print(response.body);
-    User loggedIn = new User response.body;
-    return response.body;
+//    var data = response.body;
+//    print("response body: "+data); //så printer den en jsonEncoded user.
+    var userMap = jsonDecode(response.body); // jsonDecode laver json-strengen til en Map<String, dynamic>,
+    var user = User.fromJson(userMap); // Herefter laver User.fromJson-metoden en User ud fra denne Map(se hvordan i User).
+    return user;
   } else {
     // If that response was not OK, throw an error.
     throw Exception('Failed to load user');
@@ -65,7 +70,6 @@ Future<List<User>> getUsersAll() async {
     throw Exception('Failed to load user');
   }
 }
-
 // A helping function for getUsersAll to convert a response body into a List<User>.
 List<User> parseUsers(String responseBody) {
   // Caster til en Map<String, dynamic>, da responseBody-JSON'en, egentlig er en Liste af disse User-Maps.
@@ -74,39 +78,43 @@ List<User> parseUsers(String responseBody) {
 }
 
 
-
-
-  Future<int> checkLogin(User loginUser) async {
-    var body = json.encode(loginUser);
-    Map<String, String> headers = {
-      'Content-type': 'application/json',
-    };
-    final response = await http
-        .post(SERVER_URL+'/login', body: body, headers: headers)
-        .catchError((error) => print(error.toString()));
-    print(response.body);
-    if(response.statusCode == 200){
-      print("Success! Status code is:");
-      print(response.statusCode);
-
-      return 200;
-    }
-    else{
-      print('Login information incorrect');
-      return 0;
-    }
+Future<dynamic> deleteUser(int id) async {
+  final response = await http.delete(SERVER_URL+"/"+id.toString());
+  print("Nu forsøges bruger med id: "+id.toString()+", at slettes...");
+  if (response.statusCode == 200)
+    {
+      print("Delete statuscode 200 var true");
+      print(response.body); // besked defineret i @delete i backend
+    } else {
+    print("Delete statuscode 200 var falsk");
+    print(response.body); //besked defineret i @delete i backend
   }
+}
 
-Future<User> getUserFromName(String username) async {
-  final response = await http.get(SERVER_URL+"/"+username); //server url + /username
+
+
+
+
+
+
+
+Future<int> checkLogin(User loginUser) async {
+  var body = json.encode(loginUser);
+  Map<String, String> headers = {
+    'Content-type': 'application/json',
+  };
+  final response = await http
+      .post(SERVER_URL + '/login', body: body, headers: headers)
+      .catchError((error) => print(error.toString()));
+  print(response.body);
   if (response.statusCode == 200) {
-    // If server returns an OK(200) response, parse the JSON.
-    print("Here is the account: ");
-    print(response.toString());
-    return User.fromJson(jsonDecode(response.body));
-  } else {
-    // If that response was not OK, throw an error.
-    throw Exception('Failed to load user');
+    print("Success! Status code is:");
+    // print(response.statusCode);
+    return 200;
+  }
+  else {
+    print('Login information incorrect');
+    return 0;
   }
 }
 

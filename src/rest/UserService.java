@@ -1,9 +1,12 @@
 package rest;
 
+import android.annotation.TargetApi;
+import android.os.Build;
 import dto.IUserDTO;
 import dto.UserDTO;
 
 import org.json.JSONArray;
+import org.json.JSONException;
 import org.json.JSONObject;
 
 import javax.ws.rs.*;
@@ -43,9 +46,10 @@ public class UserService { // Start på UserService klasse.
     public UserDTO getUser(@PathParam("id") int id) { return users.get(id); }
 
 
+    @TargetApi(Build.VERSION_CODES.N)
     @POST
     @Produces(MediaType.TEXT_PLAIN)
-    public Response addUserDTOJson(String body) throws InvalidIdException {
+    public Response addUserDTOJson(String body) throws InvalidIdException, JSONException {
         JSONObject jsonObject = new JSONObject(body);
 
         // roles håndteres fra JSONarray til Java ArrayList. Akavet måde?
