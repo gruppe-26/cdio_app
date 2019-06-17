@@ -1,7 +1,6 @@
 package rest;
 
-import android.annotation.TargetApi;
-import android.os.Build;
+
 import dto.UserDTO;
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -43,32 +42,20 @@ public class UserServiceFlutter { // Start på UserService klasse.
     @GET
     @Path("{username}") // parameter
     @Produces(MediaType.TEXT_PLAIN)
-    public Response getUser(@PathParam("username") String username) {
+    public UserDTO getUser(@PathParam("username") String username) {
         System.out.println("CONTACT BUCKO: "+username);
         for(int i = 1; i<=users.size();i++){
             if(username.equals(users.get(i).getUserName())){
                 JSONObject jsonObject = new JSONObject(users.get(i));
                 System.out.println(users.get(i).toString());
                 System.out.println("get body: "+jsonObject);
-                return Response
-                        .status(200)
-                        .type("application/json; charset=utf-8")
-                        .header("Status", 200 + " OK")
-                        .header("Access-Control-Allow-Origin", "*")
-                        .header("Access-Control-Allow-Credentials", true)
-                        .header("X-Frame-Options", "SAMEORIGIN")
-                        .header("X-XSS-Protection", "1; mode=block")
-                        .header("X-Content-Type-Options", "nosniff")
-                        .header("Connection", "keep-alive")
-                        .entity(users.get(i).toString())
-                        .build();
+                return users.get(i);
             }
         }
     return null;
     }
 
 
-    @TargetApi(Build.VERSION_CODES.N)
     @POST
     @Produces(MediaType.TEXT_PLAIN)
     public Response addUserDTOJson(String body) throws InvalidIdException, JSONException {
@@ -134,6 +121,7 @@ public class UserServiceFlutter { // Start på UserService klasse.
     public Response loginConfirmation(String loginbody) throws InvalidIdException, JSONException {
         JSONObject jsonObject = new JSONObject(loginbody);
         System.out.println("loginbody: "+loginbody);
+        int tal = 0;
         UserDTO loginUser = new UserDTO(1,jsonObject.getString("userName"),"ini",jsonObject.getString("password"),new ArrayList<>(Arrays.asList("Admin", "Moderator")));
         boolean b = false;
         for(int i = 1; i<=users.size(); i++){
@@ -141,6 +129,7 @@ public class UserServiceFlutter { // Start på UserService klasse.
             if(users.get(i).getUserName().equals(loginUser.getUserName()) &&
                     users.get(i).getPassword().equals(loginUser.getPassword())){
                 b = true;
+                tal = i;
                 System.out.println("User found!");
             }
         }
@@ -156,7 +145,7 @@ public class UserServiceFlutter { // Start på UserService klasse.
                     .header("X-XSS-Protection", "1; mode=block")
                     .header("X-Content-Type-Options", "nosniff")
                     .header("Connection", "keep-alive")
-                    .entity(loginbody)
+                    .entity(users.get(tal))
                     .build();
         }
         else{

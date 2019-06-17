@@ -9,8 +9,8 @@ import 'package:flutter/material.dart';
 import 'MenuPage.dart';
 import 'loginpagestate.dart';
 
-
-String SERVER_URL = "http://192.168.0.18:8080/rest/userFlutter";
+// TODO: HUSK AT SKIFT IP ADDRESSEN TIL DIN NUVÆRENDE IPV4 ADDRESS!!!!
+String SERVER_URL = "http://10.16.164.201:8080/rest/userFlutter";
 
 
 // Add/create user (@POST)
@@ -98,7 +98,7 @@ Future<dynamic> deleteUser(int id) async {
 
 
 
-Future<int> checkLogin(User loginUser) async {
+Future<User> checkLogin(User loginUser) async {
   var body = json.encode(loginUser);
   Map<String, String> headers = {
     'Content-type': 'application/json',
@@ -108,13 +108,14 @@ Future<int> checkLogin(User loginUser) async {
       .catchError((error) => print(error.toString()));
   print(response.body);
   if (response.statusCode == 200) {
-    print("Success! Status code is:");
+    var userMap = jsonDecode(response.body); // jsonDecode laver json-strengen til en Map<String, dynamic>,
+    var user = User.fromJson(userMap);    print("Success! Status code is:");
     // print(response.statusCode);
-    return 200;
+    return user;
   }
   else {
     print('Login information incorrect');
-    return 0;
+    return null;
   }
 }
 

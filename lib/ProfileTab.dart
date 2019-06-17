@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 
-import 'loginpagestate.dart';
+import 'package:cdio_app/loginpagestate.dart';
 import 'loginpage.dart';
-import 'loginpagestate.dart';
+import 'package:cdio_app/loginpagestate.dart';
 class ProfilTab extends StatefulWidget {
   // Using statefulwidget because we will use animations
   @override
