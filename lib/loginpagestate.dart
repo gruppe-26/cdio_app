@@ -14,11 +14,15 @@ import 'loginUser.dart';
 import 'package:cdio_app/Validator.dart';
 import 'HTTPcoms.dart';
 
+
 class LoginPageState extends State<LoginPage> with SingleTickerProviderStateMixin {
 // Create a global key that will uniquely identify the Form widget and allow us to validate the form
   final _formKey = GlobalKey<FormState>();
   final _username = TextEditingController();
   final _password = TextEditingController();
+  static User LoggedIn = new User(null,null,null,null,null);
+
+
 
   @override
   Widget build(BuildContext context){
@@ -109,16 +113,17 @@ class LoginPageState extends State<LoginPage> with SingleTickerProviderStateMixi
                           style: new TextStyle(fontSize: 18),
                           ),
                           onPressed: () async {
-                            var loginUser = new User(null,_username.text,null,_password.text,null);
+                            var loginUserCredentials = new User(null,_username.text,null,_password.text,null);
                             print("Du loggede ind med: ");
-                            print(loginUser.toString());
+                            print(loginUserCredentials.toString());
                             if (_formKey.currentState.validate()) {
                               // often want to call a server or save the information in a database
                               // If the form is filled out, then go to profile page. In reality we need to check the username/password
-                              User confirm = await checkLogin(loginUser);
+                              User currentlyLoggedIn = await checkLogin(loginUserCredentials);
                               print("Brugeren er hentet: ");
-                              print(confirm.toString());
-                              if(confirm.userId!=null){
+                              print(currentlyLoggedIn.toString());
+                              if(currentlyLoggedIn.userId!=null){
+                                LoggedIn = currentlyLoggedIn;
                                 Navigator.pushNamed(context, '/otherPage');
                               }
                               else{
@@ -137,9 +142,10 @@ class LoginPageState extends State<LoginPage> with SingleTickerProviderStateMixi
         ],
       ),
     );
+
+
   }
 }
-
 
 class roundBorder{
   WidgetBuilder(BuildContext context){
@@ -164,3 +170,30 @@ class SnackBarMessage extends StatelessWidget {
     );
   }
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

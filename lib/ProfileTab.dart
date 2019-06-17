@@ -1,19 +1,23 @@
+import 'package:cdio_app/loginpagestate.dart' as prefix0;
 import 'package:flutter/material.dart';
 
 import 'package:cdio_app/loginpagestate.dart';
 import 'loginpage.dart';
-import 'package:cdio_app/loginpagestate.dart';
 class ProfilTab extends StatefulWidget {
-  // Using statefulwidget because we will use animations
   @override
   State createState() => new ProfileTabst();
 }
 
+
+
 class ProfileTabst extends State<ProfilTab>
     with SingleTickerProviderStateMixin {
+
+
   @override
   Widget build(BuildContext context) {
     // TODO: implement build
+
     return new Stack(
       children: <Widget>[
         ClipPath(

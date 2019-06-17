@@ -47,8 +47,6 @@ Future<User> getUser(int id) async {
   final response = await http.get(SERVER_URL+"/"+id.toString()); //server url + /id
   if (response.statusCode == 200) {
     // If server returns an OK(200) response, parse the JSON.
-//    var data = response.body;
-//    print("response body: "+data); //så printer den en jsonEncoded user.
     var userMap = jsonDecode(response.body); // jsonDecode laver json-strengen til en Map<String, dynamic>,
     var user = User.fromJson(userMap); // Herefter laver User.fromJson-metoden en User ud fra denne Map(se hvordan i User).
     return user;
@@ -91,13 +89,6 @@ Future<dynamic> deleteUser(int id) async {
   }
 }
 
-
-
-
-
-
-
-
 Future<User> checkLogin(User loginUser) async {
   var body = json.encode(loginUser);
   Map<String, String> headers = {
@@ -109,8 +100,7 @@ Future<User> checkLogin(User loginUser) async {
   print(response.body);
   if (response.statusCode == 200) {
     var userMap = jsonDecode(response.body); // jsonDecode laver json-strengen til en Map<String, dynamic>,
-    var user = User.fromJson(userMap);    print("Success! Status code is:");
-    // print(response.statusCode);
+    var user = User.fromJson(userMap);
     return user;
   }
   else {
