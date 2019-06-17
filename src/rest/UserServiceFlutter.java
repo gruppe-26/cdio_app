@@ -1,6 +1,8 @@
 package rest;
 
 
+import android.annotation.TargetApi;
+import android.os.Build;
 import dto.UserDTO;
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -37,18 +39,20 @@ public class UserServiceFlutter { // Start på UserService klasse.
         return new ArrayList<>(users.values());
     }
 
-    // Getter specifik bruger.
+    // Getter specifik bruger efter ID.
+    // Postman GET eksempel ***  http://localhost:8080/Lektion12/rest/user/2
+    @GET
+    @Path("{id}") // parameter
+    public UserDTO getUserFromId(@PathParam("id") int id) { return users.get(id); }
+
+    // Getter specifik bruger efter userName.
     // Postman GET eksempel ***  http://localhost:8080/Lektion12/rest/user/2
     @GET
     @Path("{username}") // parameter
     @Produces(MediaType.TEXT_PLAIN)
-    public UserDTO getUser(@PathParam("username") String username) {
-        System.out.println("CONTACT BUCKO: "+username);
+    public UserDTO getUserFromName(@PathParam("username") String username) {
         for(int i = 1; i<=users.size();i++){
             if(username.equals(users.get(i).getUserName())){
-                JSONObject jsonObject = new JSONObject(users.get(i));
-                System.out.println(users.get(i).toString());
-                System.out.println("get body: "+jsonObject);
                 return users.get(i);
             }
         }
@@ -56,6 +60,7 @@ public class UserServiceFlutter { // Start på UserService klasse.
     }
 
 
+    @TargetApi(Build.VERSION_CODES.N)
     @POST
     @Produces(MediaType.TEXT_PLAIN)
     public Response addUserDTOJson(String body) throws InvalidIdException, JSONException {
