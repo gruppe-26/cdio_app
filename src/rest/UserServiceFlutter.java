@@ -1,8 +1,6 @@
 package rest;
 
 
-import android.annotation.TargetApi;
-import android.os.Build;
 import dto.UserDTO;
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -39,18 +37,12 @@ public class UserServiceFlutter { // Start på UserService klasse.
         return new ArrayList<>(users.values());
     }
 
-    // Getter specifik bruger efter ID.
-    // Postman GET eksempel ***  http://localhost:8080/Lektion12/rest/user/2
-    @GET
-    @Path("{id}") // parameter
-    public UserDTO getUserFromId(@PathParam("id") int id) { return users.get(id); }
-
-    // Getter specifik bruger efter userName.
+    // Getter specifik bruger.
     // Postman GET eksempel ***  http://localhost:8080/Lektion12/rest/user/2
     @GET
     @Path("{username}") // parameter
     @Produces(MediaType.TEXT_PLAIN)
-    public UserDTO getUserFromName(@PathParam("username") String username) {
+    public UserDTO getUser(@PathParam("username") String username) {
         for(int i = 1; i<=users.size();i++){
             if(username.equals(users.get(i).getUserName())){
                 return users.get(i);
@@ -59,8 +51,10 @@ public class UserServiceFlutter { // Start på UserService klasse.
     return null;
     }
 
+    @GET
+    @Path("{id}") // parameter
+    public UserDTO getUserfromID(@PathParam("id") int id) { return users.get(id); }
 
-    @TargetApi(Build.VERSION_CODES.N)
     @POST
     @Produces(MediaType.TEXT_PLAIN)
     public Response addUserDTOJson(String body) throws InvalidIdException, JSONException {
@@ -157,20 +151,6 @@ public class UserServiceFlutter { // Start på UserService klasse.
             System.out.println("User not found");
             throw new InvalidIdException("Bruger ikke fundet");        }
     }
-
-//    @GET
-//    @Path("{username}") // parameter
-//    @Produces(MediaType.TEXT_PLAIN)
-//    public UserDTO getUser(@PathParam("username") String username) {
-//        System.out.println("Fetching userdata from username: "+username);
-//        for(int i = 1; i<=users.size(); i++){
-//            if(users.get(i).getUserName().equals(username)){
-//                System.out.println("User found!");
-//                return users.get(i);
-//            }
-//        }
-//        return null;
-//    }
 } // Slut på UserService klasse.
 
 

@@ -10,7 +10,7 @@ import 'MenuPage.dart';
 import 'loginpagestate.dart';
 
 // TODO: HUSK AT SKIFT IP ADDRESSEN TIL DIN NUVÆRENDE IPV4 ADDRESS!!!!
-String SERVER_URL = "http://10.16.164.201:8080/rest/userFlutter";
+String SERVER_URL = "http://172.18.37.81:8080/rest/userFlutter";
 
 
 // Add/create user (@POST)

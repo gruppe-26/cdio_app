@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 
 //next level
 import 'ProfileTab.dart';
-import 'ScienceTab.dart';
+import 'UserListTab.dart';
 import 'CreateUserTab.dart';
 
 class TabBarDemo extends StatelessWidget {
@@ -60,7 +60,7 @@ class OtherScreen extends StatelessWidget {
             bottom: TabBar(
               tabs: [
                 Tab(icon: Icon(Icons.account_box),text: "Profile",),
-                Tab(icon: Icon(Icons.camera),text: "Science",),
+                Tab(icon: Icon(Icons.camera),text: "User List",),
                 Tab(icon: Icon(Icons.supervised_user_circle), text: "Create new User",),
               ],
             ),
@@ -69,7 +69,7 @@ class OtherScreen extends StatelessWidget {
           body: new TabBarView(
             children:<Widget>[ // Each child is the content for each of the 3 tabs.
               new ProfilTab(),
-              new ScienceTab(),
+              new UserListTab(),
               new CreateUserForm(),
             ],
           )),

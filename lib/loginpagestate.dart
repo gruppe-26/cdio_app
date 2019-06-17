@@ -2,7 +2,7 @@ import 'dart:convert';
 import 'dart:core' as prefix0;
 import 'dart:core';
 import 'dart:math';
-
+import 'Controller.dart';
 import 'package:cdio_app/user.dart';
 import 'package:flutter/material.dart';
 
@@ -117,13 +117,11 @@ class LoginPageState extends State<LoginPage> with SingleTickerProviderStateMixi
                             print("Du loggede ind med: ");
                             print(loginUserCredentials.toString());
                             if (_formKey.currentState.validate()) {
-                              // often want to call a server or save the information in a database
                               // If the form is filled out, then go to profile page. In reality we need to check the username/password
-                              User currentlyLoggedIn = await checkLogin(loginUserCredentials);
+                              User currentlyLoggedIn = await logIn(loginUserCredentials);
                               print("Brugeren er hentet: ");
                               print(currentlyLoggedIn.toString());
-                              if(currentlyLoggedIn.userId!=null){
-                                LoggedIn = currentlyLoggedIn;
+                              if(currentlyLoggedIn.userId!=null){ // Check if the user exists
                                 Navigator.pushNamed(context, '/otherPage');
                               }
                               else{
