@@ -9,8 +9,8 @@ import 'package:flutter/material.dart';
 import 'MenuPage.dart';
 import 'loginpagestate.dart';
 
-// TODO: HUSK AT SKIFT IP ADDRESSEN TIL DIN NUVÆRENDE IPV4 ADDRESS!!!!
-String SERVER_URL = "http://172.18.37.81:8080/rest/userFlutter";
+// TODO: HUSK AT SKIFT IP ADDRESSEN TIL DIN NUVÆRENDE IPV4 ADDRESSE!!!!
+String SERVER_URL = "http://192.168.0.18:8080/rest/userFlutter";
 
 
 // Add/create user (@POST)

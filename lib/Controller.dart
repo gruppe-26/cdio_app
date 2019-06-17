@@ -11,15 +11,23 @@ import 'loginpagestate.dart';
 import 'user.dart';
 import 'HTTPcoms.dart';
 
+class Controller {
 
-Future<User> logIn(User loginUser) async{
-  User loggedInUser = await checkLogin(loginUser); // Receive user from server
+  Controller();
 
-  return loggedInUser;
+  Future<User> logIn(User loginUser) async{
+    User loggedInUser = await checkLogin(loginUser); // Receive user from server
+
+    return loggedInUser;
+  }
+
+  Future<List<User>> getUserList() async{
+    List<User> userList = await getUsersAll();
+    print(userList.toString());
+    return userList;
+  }
+
 }
 
-Future<dynamic> createUserList() async{
-  List<User> userList = await getUsersAll();
-  print(userList.toString());
-  return userList;
-}
+
+
