@@ -35,15 +35,21 @@ public class UserServiceFlutter { // Start på UserService klasse.
         return id;
     }
 
-    // Getter alle brugere i en ArrayListe.
-    // Postman GET eksempel ***  http://localhost:8080/Lektion12/rest/user/
+
+    // Getter specifik bruger.
+    // Postman GET eksempel ***  http://localhost:8080/Lektion12/rest/userFlutter/2
+    @GET
+    @Path("{id}") // parameter
+    public UserDTO getUserfromID(@PathParam("id") int id) { return users.get(id); }
+
+    // Getter alle brugere og returnere dem i en  ArrayListe.
+    // Postman GET eksempel ***  http://localhost:8080/Lektion12/rest/userFlutter/
     @GET
     public List<UserDTO> getUserList() {
         return new ArrayList<>(users.values());
     }
 
-    // Getter specifik bruger.
-    // Postman GET eksempel ***  http://localhost:8080/Lektion12/rest/user/2
+
     @GET
     @Path("{username}") // parameter
     @Produces(MediaType.TEXT_PLAIN)
@@ -56,9 +62,6 @@ public class UserServiceFlutter { // Start på UserService klasse.
     return null;
     }
 
-    @GET
-    @Path("{id}") // parameter
-    public UserDTO getUserfromID(@PathParam("id") int id) { return users.get(id); }
 
     @POST
     @Produces(MediaType.TEXT_PLAIN)
