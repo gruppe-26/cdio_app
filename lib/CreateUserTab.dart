@@ -95,15 +95,6 @@ class _MenuTab3 extends State<CreateUserForm> {
                         children: <Widget>[
                           new TextField(
                             decoration: new InputDecoration(
-                              labelText: "UserID",
-                              hintText: 'Number between 1-100',
-
-                            ),
-                            keyboardType: TextInputType.number,
-                            controller: _userID,
-                          ),
-                          new TextField(
-                            decoration: new InputDecoration(
                               labelText: "Username",
                               hintText: 'e.g Dragonslayer69',
 
@@ -168,8 +159,8 @@ class _MenuTab3 extends State<CreateUserForm> {
                               if(checkbox4 == true){
                                 roles.add("Laborant");
                               }
-
-                              User user = new User(int.parse(_userID.text),_username.text, _initials.text, _password.text, roles);
+                              // The user starts with no ID in the frontend. It is generated on the tomcat server
+                              User user = new User(null,_username.text, _initials.text, _password.text, roles);
                               await addUser(user);
 
                               roles.clear();

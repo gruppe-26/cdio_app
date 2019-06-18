@@ -23,12 +23,17 @@ public class UserServiceFlutter { // Start på UserService klasse.
     static Map<Integer, UserDTO> users = new HashMap<>();
     // Dummy data
     static {
-        users.put(1, new UserDTO(1, "Tristan", "TES", "Hund123", new ArrayList<>(Arrays.asList("Admin", "Moderator"))));
-        users.put(2, new UserDTO(2, "Stig", "SMN", "Kat123", new ArrayList<>(Arrays.asList("Far"))));
-        users.put(3, new UserDTO(3, "mcm", "mc", "pass", new ArrayList<>()));
-        users.put(4, new UserDTO(4, "d", "mc", "d", new ArrayList<>()));
+        users.put(1, new UserDTO(createUserID(), "Tristan", "TES", "Hund123", new ArrayList<>(Arrays.asList("Admin", "Moderator"))));
+        users.put(2, new UserDTO(createUserID(), "Stig", "SMN", "Kat123", new ArrayList<>(Arrays.asList("Far"))));
+        users.put(3, new UserDTO(createUserID(), "mcm", "mc", "pass", new ArrayList<>()));
+        users.put(4, new UserDTO(createUserID(), "d", "mc", "d", new ArrayList<>()));
     }
 
+
+    public static int createUserID(){
+        int id = users.size()+1;
+        return id;
+    }
 
     // Getter alle brugere i en ArrayListe.
     // Postman GET eksempel ***  http://localhost:8080/Lektion12/rest/user/
@@ -70,7 +75,7 @@ public class UserServiceFlutter { // Start på UserService klasse.
             }
         }
         // user oprettes og håndteres fra JSONobjekt til UserDTO.
-        UserDTO user = new UserDTO(jsonObject.getInt("userId"), jsonObject.getString("userName"), jsonObject.getString("ini"), jsonObject.getString("password"), roles);
+        UserDTO user = new UserDTO(createUserID(), jsonObject.getString("userName"), jsonObject.getString("ini"), jsonObject.getString("password"), roles);
 
         //putIfAbsent returner null hvis id ikke eksisterer. returner nøgle-værdien(UserDTO) hvis id eksisterer.
         if (users.putIfAbsent(user.getUserId(), user) == null)
