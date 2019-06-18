@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:http/http.dart';
 import 'loginpage.dart';
 import 'MenuPage.dart';
 import 'user.dart';
@@ -39,13 +40,24 @@ class _UserListTabState extends State<UserListTab> {
           automaticallyImplyLeading: false, // Removes the return button on the appbar.
         ),
         body: ListView.builder(
-            itemCount: _userList.length,
+            itemCount: _userList == null ? 0 : _userList.length, // If user list hasnt been fetched, length is null. Else, show
             itemBuilder: (context, index){
               return Card (
                 child: ListTile(
                   //                  title: Text(_userList[index].userId.toString()+": "+_userList[index].userName),
-                  leading: Text(_userList[index].userId.toString(), style: TextStyle(fontSize: 20.0, fontWeight: FontWeight.bold)),
-                  title: Text(_userList[index].userName),
+                  leading: Text(_userList[index].userId.toString(), style: TextStyle(fontSize: 30.0, fontWeight: FontWeight.bold)),
+                  trailing:
+                  IconButton(icon: Icon(Icons.delete_sweep),
+                  onPressed: (){
+                    // Run controller delete function
+                    setState(() {
+                      c.delete(_userList[index].userId);
+                      _userList.removeAt(index);
+                    });
+
+                  },// Button function
+                  ),
+                  title: Text(_userList[index].userName.toString()),
                   subtitle: Text(_userList[index].roles.toString()),
 
                   onTap:() {

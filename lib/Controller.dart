@@ -32,7 +32,9 @@ class Controller {
     return userList;
   }
 
-
+  delete(int id) async{
+    deleteUser(id);
+  }
 
 }
 
