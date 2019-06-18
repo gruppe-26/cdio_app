@@ -28,7 +28,8 @@ class Controller {
 
   Future<List<User>> getUserList() async{
     List<User> userList = await getUsersAll();
-    print(userList.toString());
+    print("ROLE PRINT TEST");
+    print(userList[1].roles.elementAt(0));
     return userList;
   }
 

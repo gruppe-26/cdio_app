@@ -11,7 +11,6 @@ import 'package:flutter/material.dart';
 import 'loginpage.dart';
 import 'MenuPage.dart';
 import 'loginUser.dart';
-import 'package:cdio_app/Validator.dart';
 import 'HTTPcoms.dart';
 
 Controller c = new Controller();
@@ -115,18 +114,14 @@ class LoginPageState extends State<LoginPage> with SingleTickerProviderStateMixi
                           ),
                           onPressed: () async {
                             var loginUserCredentials = new User(null,_username.text,null,_password.text,null);
-                            print("Du loggede ind med: ");
-                            print(loginUserCredentials.toString());
                             if (_formKey.currentState.validate()) {
                               // If the form is filled out, then go to profile page. In reality we need to check the username/password
                               User currentlyLoggedIn = await c.logIn(loginUserCredentials);
-                              print("Brugeren er hentet: ");
-                              print(currentlyLoggedIn.toString());
                               if(currentlyLoggedIn.userId!=null){ // Check if the user exists
+                                print("pushing");
                                 Navigator.pushNamed(context, '/otherPage');
                               }
                               else{
-                                Text('Username and/or Password is incorrect');
                               }
                             }
                           },
@@ -141,8 +136,6 @@ class LoginPageState extends State<LoginPage> with SingleTickerProviderStateMixi
         ],
       ),
     );
-
-
   }
 }
 

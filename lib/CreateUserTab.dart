@@ -74,7 +74,7 @@ class _MenuTab3 extends State<CreateUserForm> {
   Widget build(BuildContext context) {
 
     return new Scaffold(
-      backgroundColor: Colors.black38,
+      backgroundColor: Colors.blue,
       body: SingleChildScrollView( // Allows to
         child: new Stack(
           children: <Widget>[
@@ -140,7 +140,7 @@ class _MenuTab3 extends State<CreateUserForm> {
                             color: Colors.white,
                             textColor: Colors.blue,
                             shape: new RoundedRectangleBorder(borderRadius: new BorderRadius.circular(30.0)),
-                            child: new Text("Create User"),
+                            child: new Text("Create User", style: new TextStyle(fontSize: 18)),
 
                             onPressed: () async {
 

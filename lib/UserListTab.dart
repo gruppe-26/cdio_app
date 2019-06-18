@@ -32,7 +32,6 @@ class _UserListTabState extends State<UserListTab> {
     });
   }
 
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -44,9 +43,11 @@ class _UserListTabState extends State<UserListTab> {
             itemBuilder: (context, index){
               return Card (
                 child: ListTile(
+
                   //                  title: Text(_userList[index].userId.toString()+": "+_userList[index].userName),
                   leading: Text(_userList[index].userId.toString(), style: TextStyle(fontSize: 30.0, fontWeight: FontWeight.bold)),
                   trailing:
+                  _userList[c.getUser().userId-1].roles.elementAt(0)=="Admin" ?
                   IconButton(icon: Icon(Icons.delete_sweep),
                   onPressed: (){
                     // Run controller delete function
@@ -56,7 +57,7 @@ class _UserListTabState extends State<UserListTab> {
                     });
 
                   },// Button function
-                  ),
+                  ): null,  //Null is for not showing any delete button if user!= admin
                   title: Text(_userList[index].userName.toString()),
                   subtitle: Text(_userList[index].roles.toString()),
 
