@@ -17,6 +17,7 @@ class User {
 
   // fromJson metode. Returnerer en user ud fra en Map<String, dynamic>, hvor K=String(fieldNavn), og V=dynamic(datatypen, kan være int, String, List<String> i vores tilfælde).
   factory User.fromJson(Map<String, dynamic> parsedJson) {
+    // parsedJson er altså vores indkommende Map<String, dynamic>, som skal blive til en user.
     var rolesFromJson = parsedJson['roles'];
     List<String> rolesList = rolesFromJson.cast<String>();
     User user = new User(
