@@ -25,8 +25,8 @@ public class UserServiceFlutter { // Start på UserService klasse.
     static {
         users.put(1, new UserDTO(createUserID(), "Tristan", "TES", "Hund123", new ArrayList<>(Arrays.asList("Admin", "Moderator"))));
         users.put(2, new UserDTO(createUserID(), "Stig", "SMN", "Kat123", new ArrayList<>(Arrays.asList("Far"))));
-        users.put(3, new UserDTO(createUserID(), "mcm", "mc", "pass", new ArrayList<>()));
-        users.put(4, new UserDTO(createUserID(), "d", "mc", "d", new ArrayList<>()));
+        users.put(3, new UserDTO(createUserID(), "mcm", "mc", "d", new ArrayList<>(Arrays.asList("Admin"))));
+        users.put(4, new UserDTO(createUserID(), "jenje", "jj", "d", new ArrayList<>(Arrays.asList("Admin"))));
     }
 
 
@@ -105,6 +105,36 @@ public class UserServiceFlutter { // Start på UserService klasse.
         }
     }
 
+    @PUT
+    @Path("{update}")
+    @Produces(MediaType.TEXT_PLAIN)
+    public Response updateUser(@PathParam("update") String body) throws InvalidIdException, JSONException {
+        System.out.println("Updating user");
+        JSONObject jsonObject = new JSONObject(body);
+        ArrayList<String> roles = new ArrayList<String>();
+        JSONArray jArray = jsonObject.getJSONArray("roles");
+        if (jArray != null) {
+            for (int i = 0; i < jArray.length(); i++) {
+                roles.add(jArray.getString(i));
+            }
+        }
+        int userID = jsonObject.getInt("userId");
+        // user oprettes og håndteres fra JSONobjekt til UserDTO.
+        UserDTO user = new UserDTO(userID, jsonObject.getString("userName"), jsonObject.getString("ini"), jsonObject.getString("password"), roles);
+        users.put(userID, user);
+        return Response
+                .status(200)
+                .type("application/json; charset=utf-8")
+                .header("Status", 200 + " OK")
+                .header("Access-Control-Allow-Origin", "*")
+                .header("Access-Control-Allow-Credentials", true)
+                .header("X-Frame-Options", "SAMEORIGIN")
+                .header("X-XSS-Protection", "1; mode=block")
+                .header("X-Content-Type-Options", "nosniff")
+                .header("Connection", "keep-alive")
+                .entity(user)
+                .build();
+    }
 
     // Sletter specifik bruger.
     // Postman DELETE eksempel ***  http://localhost:8080/Lektion12/rest/user/2

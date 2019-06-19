@@ -83,33 +83,15 @@ class ProfileTabst extends State<ProfilTab>
                 ),
 
                 //knapper om at ændre kode og logud
-                Container(
-                  height: 30,
-                  width: 95,
-                  child: Material(
-                    borderRadius: BorderRadius.circular(20.0),
-                    shadowColor: Colors.blueAccent,
-                    color: Colors.blue,
-                    elevation:3.0,
-                    child: GestureDetector(
-                      onTap: () {},
-                      child: Center(
-                        child: Text(
-                          'password',
-                          style: TextStyle(color: Colors.white),
-                        ),
-                      ),
-                    ),
-                  ),
-                ),
+
                 SizedBox(
                   height: 40.0,
                 ),
                 Container(
-                  height: 30,
-                  width: 95,
+                  height: 55,
+                  width: 150,
                   child: Material(
-                    borderRadius: BorderRadius.circular(20.0),
+                    borderRadius: BorderRadius.circular(30.0),
                     shadowColor: Colors.redAccent,
                     color: Colors.red,
                     elevation: 3.2,
@@ -120,7 +102,7 @@ class ProfileTabst extends State<ProfilTab>
                       child: Center(
                         child: Text(
                           'logout',
-                          style: TextStyle(color: Colors.white),
+                          style: TextStyle(color: Colors.white, fontSize: 18, fontWeight: FontWeight.bold),
                         ),
                       ),
                     ),
