@@ -27,7 +27,9 @@ class UserDetailScreen extends StatelessWidget {
             "\nPassword: " +
             user.password +
             "\nRoles: " +
-            user.roles.toString()),
+            user.roles.toString(),
+        style: TextStyle(fontWeight: FontWeight.bold,fontSize: 20),
+        ),
       ),
     );
   }
