@@ -76,6 +76,4 @@ class _UserListTabState extends State<UserListTab> {
     );
   } //end of build
 
-
-
 }

@@ -62,10 +62,12 @@ class BackendDAO {
 // Get all users (@GET)
   Future<List<User>> getUsersAll() async {
     final response = await http.get(SERVER_URL);
+    print("getUserAll bodu: "+response.body);
     if (response.statusCode == 200) {
       // If server returns an OK(200) response, parse the JSON using helping method 'parseUsers'.
       // Using the compute function to run parseUsers in a separate isolate. Helps performance on slower devices.
-      return compute(parseUsers, response.body);
+//      return compute(parseUsers, response.body);
+    return parseUsers(response.body);
     } else {
       // If that response was not OK, throw an error.
       throw Exception('Failed to load user');
@@ -120,8 +122,9 @@ class BackendDAO {
       'Content-type': 'application/json',
     };
     final response = await http
-        .post(SERVER_URL + '/update', body: body, headers: headers)
+        .put(SERVER_URL + '/update', body: body, headers: headers)
         .catchError((error) => print(error.toString()));
+    print("updateUser bodu: "+response.body);
     if (response.statusCode == 200) {
       print("Bruger blev opdateret");
     } else {

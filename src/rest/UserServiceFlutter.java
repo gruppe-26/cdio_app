@@ -25,16 +25,21 @@ public class UserServiceFlutter { // Start på UserService klasse.
     static Map<Integer, UserDTO> users = new HashMap<>();
     // Dummy data
     static {
-        users.put(1, new UserDTO(createUserID(), "Tristan", "TES", "Hund123", new ArrayList<>(Arrays.asList("Admin", "Moderator"))));
-        users.put(2, new UserDTO(createUserID(), "Stig", "SMN", "Kat123", new ArrayList<>(Arrays.asList("Far"))));
-        users.put(3, new UserDTO(createUserID(), "mcm", "mc", "d", new ArrayList<>(Arrays.asList("Admin"))));
-        users.put(4, new UserDTO(createUserID(), "jenje", "jj", "d", new ArrayList<>(Arrays.asList("Admin"))));
+        users.put(1, new UserDTO(1, "Tristan", "TES", "Hund123", new ArrayList<>(Arrays.asList("Admin", "Moderator"))));
+        users.put(2, new UserDTO(2, "Stig", "SMN", "Kat123", new ArrayList<>(Arrays.asList("Far"))));
+        users.put(3, new UserDTO(3, "mcm", "mc", "d", new ArrayList<>(Arrays.asList("Admin"))));
+        users.put(4, new UserDTO(4, "jenje", "jj", "d", new ArrayList<>(Arrays.asList("Admin"))));
     }
 
+    static PriorityQueue<Integer> queue = new PriorityQueue<Integer>();
+    static Queue<Integer> que = new PriorityQueue<>();
 
     public static int createUserID(){
-        int id = users.size()+1;
-        return id;
+        if (que.peek() != null) {
+            return que.remove();
+        } else {
+            return users.size()+1;
+        }
     }
 
 
@@ -108,10 +113,10 @@ public class UserServiceFlutter { // Start på UserService klasse.
         }
     }
 
-    @POST
+    @PUT
     @Path("{update}")
     @Produces(MediaType.TEXT_PLAIN)
-    public Response updateUser(@PathParam("update") String body) throws InvalidIdException, JSONException {
+    public Response updateUser(String body) throws InvalidIdException, JSONException {
         System.out.println("Updating user");
         System.out.println("Body"+body);
         JSONObject jsonObject = new JSONObject(body);
@@ -149,6 +154,7 @@ public class UserServiceFlutter { // Start på UserService klasse.
     public Response deleteUserDTO(@PathParam("id") int id) {
         UserDTO existing = users.get(id);
         if (existing != null) { //hvis noget eksisterer, så slet. ellers.
+            que.add(id);
             users.remove(id);
             //System.out.println(getUserList());
             return Response.ok("Bruger med ID: "+ id +" slettet.").build();
@@ -169,8 +175,8 @@ public class UserServiceFlutter { // Start på UserService klasse.
         boolean b = false;
         for(int i = 1; i<=users.size(); i++){
             System.out.println(i);
-            if(users.get(i).getUserName().equals(loginUser.getUserName()) &&
-                    users.get(i).getPassword().equals(loginUser.getPassword())){
+            if(users.get(i).getUserName().equals(jsonObject.getString("userName")) &&
+                    users.get(i).getPassword().equals(jsonObject.getString("password"))){
                 b = true;
                 tal = i;
                 System.out.println("User found!");
