@@ -47,7 +47,7 @@ class UserDetailScreen extends StatelessWidget {
             elevation:5.0,
             child: GestureDetector(
               onTap: () {
-                Navigator.pushNamed(context, 'updateuser');}, //TODO:  Update user and return to userlist
+                Navigator.pushNamed(context, 'updateuser', arguments: user);}, //TODO:  Update user and return to userlist
               child: Center(
                 child: Text(
                   'Update this User',

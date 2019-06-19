@@ -1,6 +1,8 @@
 package rest;
 
 
+import android.annotation.TargetApi;
+import android.os.Build;
 import dto.UserDTO;
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -63,6 +65,7 @@ public class UserServiceFlutter { // Start på UserService klasse.
     }
 
 
+    @TargetApi(Build.VERSION_CODES.N)
     @POST
     @Produces(MediaType.TEXT_PLAIN)
     public Response addUserDTOJson(String body) throws InvalidIdException, JSONException {

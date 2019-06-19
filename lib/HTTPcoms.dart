@@ -18,6 +18,7 @@ Future<dynamic> addUser(User user) async {
   return requestMethod(
       url: SERVER_URL, data: user);
 }
+
 // Helping methods for add/create user.
 requestMethod({String url, User data}) async {
   var body = json.encode(data);

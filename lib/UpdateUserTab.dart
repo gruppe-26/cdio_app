@@ -6,18 +6,28 @@ import 'package:flutter/material.dart';
 
 import 'CreateUserTab.dart';
 import 'HTTPcoms.dart';
+import 'Controller.dart';
+
+Controller c = new Controller();
 
 class UpdateUserTab extends StatefulWidget {
   @override
-  createState() => new _updateTab();
+  createState() => new UpdateUserTabState();
+  final User user;
+  // In the constructor, require a User.
+  UpdateUserTab({Key key, @required this.user}) : super(key: key);
 }
 
-  class _updateTab extends State<UpdateUserTab> {
-  final _userID = TextEditingController();
-  final _username = TextEditingController();
-  final _initials = TextEditingController();
-  final _password = TextEditingController();
-  final _role = TextEditingController();
+  class UpdateUserTabState extends State<UpdateUserTab> {
+
+  final User user;
+    UpdateUserTabState({Key key, @required this.user}) : super(key: key);
+   final _userID = TextEditingController(text: user.userId.toString());
+   final _username = TextEditingController(text: user.userName);
+   final _initials = TextEditingController(text: user.ini);
+   final _password = TextEditingController(text: user.password);
+   final _role = TextEditingController();
+
 
   bool ad = false;
   bool pharma = false;
@@ -110,6 +120,7 @@ class UpdateUserTab extends StatefulWidget {
 
                           ),
                           keyboardType: TextInputType.text,
+
                           controller: _initials,
                         ),
 
@@ -161,7 +172,7 @@ class UpdateUserTab extends StatefulWidget {
                               roles.add("Laborant");
                             }// The user starts with no ID in the frontend. It is generated on the tomcat server
 
-                            User user = new User(null,_username.text, _initials.text, _password.text, roles);
+                            User user = new User(,_username.text, _initials.text, _password.text, roles);
                             await updateUser(user);
                             roles.clear();
 
