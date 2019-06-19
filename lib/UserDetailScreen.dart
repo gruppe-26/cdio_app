@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'UpdateUserTab.dart';
 import 'user.dart';
+
 
 class UserDetailScreen extends StatelessWidget {
   // Field that holds the User.
@@ -47,7 +49,7 @@ class UserDetailScreen extends StatelessWidget {
             elevation:5.0,
             child: GestureDetector(
               onTap: () {
-                Navigator.pushNamed(context, 'updateuser', arguments: user);}, //TODO:  Update user and return to userlist
+                Navigator.push(context, MaterialPageRoute(builder: (context) => UpdateUserTab(user: user,)));}, //TODO:  Update user and return to userlist
               child: Center(
                 child: Text(
                   'Update this User',
@@ -62,6 +64,8 @@ class UserDetailScreen extends StatelessWidget {
     );
   }
 }
+
+
 
 /*
 child: Container(
