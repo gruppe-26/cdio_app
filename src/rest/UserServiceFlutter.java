@@ -105,11 +105,12 @@ public class UserServiceFlutter { // Start på UserService klasse.
         }
     }
 
-    @PUT
+    @POST
     @Path("{update}")
     @Produces(MediaType.TEXT_PLAIN)
     public Response updateUser(@PathParam("update") String body) throws InvalidIdException, JSONException {
         System.out.println("Updating user");
+        System.out.println("Body"+body);
         JSONObject jsonObject = new JSONObject(body);
         ArrayList<String> roles = new ArrayList<String>();
         JSONArray jArray = jsonObject.getJSONArray("roles");
@@ -121,6 +122,7 @@ public class UserServiceFlutter { // Start på UserService klasse.
         int userID = jsonObject.getInt("userId");
         // user oprettes og håndteres fra JSONobjekt til UserDTO.
         UserDTO user = new UserDTO(userID, jsonObject.getString("userName"), jsonObject.getString("ini"), jsonObject.getString("password"), roles);
+        System.out.println("User"+user);
         users.put(userID, user);
         return Response
                 .status(200)

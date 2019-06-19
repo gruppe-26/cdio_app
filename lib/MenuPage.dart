@@ -5,35 +5,6 @@ import 'ProfileTab.dart';
 import 'UserListTab.dart';
 import 'CreateUserTab.dart';
 
-class TabBarDemo extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    return MaterialApp(
-      home: DefaultTabController(
-        length: 3,
-        child: Scaffold(
-          appBar: AppBar(
-            bottom: TabBar(
-              tabs: [
-                Tab(icon: Icon(Icons.account_box)),
-                Tab(icon: Icon(Icons.camera)),
-                Tab(icon: Icon(Icons.chat)),
-              ],
-            ),
-            title: Text('Tabs Demo'),
-          ),
-          body: TabBarView(
-            children: [
-              Icon(Icons.account_box),
-              Icon(Icons.camera),
-              Icon(Icons.chat),
-            ],
-          ),
-        ),
-      ),
-    );
-  }
-}
 
 class OtherScreen extends StatelessWidget {
   @override

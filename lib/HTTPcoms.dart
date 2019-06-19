@@ -10,7 +10,7 @@ import 'MenuPage.dart';
 import 'loginpagestate.dart';
 
 // TODO: HUSK AT SKIFT IP ADDRESSEN TIL DIN NUVÆRENDE IPV4 ADDRESSE!!!!
-String SERVER_URL = "http://172.18.37.81:8080/rest/userFlutter";
+String SERVER_URL = "http://192.168.1.14:8080/rest/userFlutter";
 
 
 // Add/create user (@POST)
@@ -109,6 +109,22 @@ Future<User> checkLogin(User loginUser) async {
   }
 }
 
+ updateUser(User updatedUser) async {
+  var body = json.encode(updatedUser);
+  print(body);
+  Map<String, String> headers = {
+    'Content-type': 'application/json',
+  };
+  final response = await http
+  .post(SERVER_URL + '/update', body: body, headers: headers)
+  .catchError((error) => print(error.toString()));
+  if (response.statusCode == 200){
+    print("Bruger blev opdateret");
+  } else{
+    print("Noget gik galt. Brugeren blev ikke opdateret");
+  }
+ return response;
+}
 
 
 

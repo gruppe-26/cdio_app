@@ -46,7 +46,8 @@ class UserDetailScreen extends StatelessWidget {
             color: Colors.blue,
             elevation:5.0,
             child: GestureDetector(
-              onTap: () {Navigator.pushNamed(context, 'home');}, //TODO:  Update user and return to userlist
+              onTap: () {
+                Navigator.pushNamed(context, 'updateuser');}, //TODO:  Update user and return to userlist
               child: Center(
                 child: Text(
                   'Update this User',

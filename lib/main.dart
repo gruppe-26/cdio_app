@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 
 //other imports
 import 'MenuPage.dart';
+import 'UpdateUserTab.dart';
 import 'loginpage.dart';
 
 // d
@@ -21,6 +22,8 @@ class MyApp extends StatelessWidget{
         'home': (context) => LoginPage(),
 
         '/otherPage': (context) => OtherScreen(),
+
+        'updateuser': (context) => UpdateUserTab(),
       },
     );
   }
