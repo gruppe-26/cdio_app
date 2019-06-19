@@ -1,9 +1,12 @@
 import 'dart:convert';
 import 'package:grouped_buttons/grouped_buttons.dart';
 import 'package:flutter/material.dart';
+import 'Controller.dart';
 import 'user.dart';
 import 'package:http/http.dart' as http;
-import 'package:cdio_app/HTTPcoms.dart';
+import 'package:cdio_app/BackendDAO.dart';
+
+Controller c = new Controller();
 
 class CreateUserForm extends StatefulWidget {
   @override
@@ -161,7 +164,7 @@ class _MenuTab3 extends State<CreateUserForm> {
                               }
                               // The user starts with no ID in the frontend. It is generated on the tomcat server
                               User user = new User(null,_username.text, _initials.text, _password.text, roles);
-                              await addUser(user);
+                              await c.createUser(user);
 
                               roles.clear();
                               Navigator.pushNamed(context, '/otherPage');

@@ -161,8 +161,9 @@ public class UserServiceFlutter { // Start på UserService klasse.
     @Path("{login}")
     @Produces(MediaType.TEXT_PLAIN)
     public Response loginConfirmation(String loginbody) throws InvalidIdException, JSONException {
+        System.out.println("loginbody 1: "+loginbody);
         JSONObject jsonObject = new JSONObject(loginbody);
-        System.out.println("loginbody: "+loginbody);
+        System.out.println("loginbody 2: "+loginbody);
         int tal = 0;
         UserDTO loginUser = new UserDTO(1,jsonObject.getString("userName"),"ini",jsonObject.getString("password"),new ArrayList<>(Arrays.asList("Admin", "Moderator")));
         boolean b = false;

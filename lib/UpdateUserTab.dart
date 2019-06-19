@@ -5,7 +5,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 import 'CreateUserTab.dart';
-import 'HTTPcoms.dart';
+import 'BackendDAO.dart';
 import 'Controller.dart';
 import 'UserDetailScreen.dart';
 
@@ -14,21 +14,20 @@ Controller c = new Controller();
 class UpdateUserTab extends StatefulWidget {
   @override
   createState() => new UpdateUserTabState();
-  final User user1;
+  final User user;
   // In the constructor, require a User.
-  UpdateUserTab({Key key, @required this.user1}) : super(key: key);
+  UpdateUserTab({Key key, @required this.user}) : super(key: key);
 
 
 }
 
   class UpdateUserTabState extends State<UpdateUserTab> {
 
-  User user = super()
 
-   final _userID = TextEditingController(text: user);
-   final _username = TextEditingController(text: user.userName);
-   final _initials = TextEditingController(text: user.ini);
-   final _password = TextEditingController(text: user.password);
+   final _userID = TextEditingController();
+   final _username = TextEditingController();
+   final _initials = TextEditingController();
+   final _password = TextEditingController();
    final _role = TextEditingController();
 
 
@@ -175,8 +174,8 @@ class UpdateUserTab extends StatefulWidget {
                               roles.add("Laborant");
                             }// The user starts with no ID in the frontend. It is generated on the tomcat server
 
-                            User user = new User(user1.,_username.text, _initials.text, _password.text, roles);
-                            await updateUser(user);
+                            User user = new User(widget.user.userId,_username.text, _initials.text, _password.text, roles);
+                            await c.updateUser(user);
                             roles.clear();
 
                             Navigator.pushNamed(context, '/otherPage');
