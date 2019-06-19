@@ -11,7 +11,7 @@ import 'package:flutter/material.dart';
 import 'loginpage.dart';
 import 'MenuPage.dart';
 import 'loginUser.dart';
-import 'HTTPcoms.dart';
+import 'BackendDAO.dart';
 
 Controller c = new Controller();
 
@@ -116,8 +116,8 @@ class LoginPageState extends State<LoginPage> with SingleTickerProviderStateMixi
                             var loginUserCredentials = new User(null,_username.text,null,_password.text,null);
                             if (_formKey.currentState.validate()) {
                               // If the form is filled out, then go to profile page. In reality we need to check the username/password
-                              User currentlyLoggedIn = await c.logIn(loginUserCredentials);
-                              if(currentlyLoggedIn.userId!=null){ // Check if the user exists
+                              bool currentlyLoggedIn = await c.logIn(loginUserCredentials);
+                              if(currentlyLoggedIn==true){ // Check if the user exists
                                 print("pushing");
                                 Navigator.pushNamed(context, '/otherPage');
                               }
