@@ -39,10 +39,11 @@ class UserDetailScreen extends StatelessWidget {
           Padding(
             padding: EdgeInsets.all(50.0),
           ),
+
           Container(
             height: 55,
             width: 150,
-          child: Material(
+          child: c.getUser().roles.elementAt(0) =='Admin' ? Material(
             borderRadius: BorderRadius.circular(20.0),
             shadowColor: Colors.blueAccent,
             color: Colors.blue,
@@ -57,7 +58,7 @@ class UserDetailScreen extends StatelessWidget {
                 ),
               ),
             ),
-          ),
+          ):null,
           )
         ],
       ),

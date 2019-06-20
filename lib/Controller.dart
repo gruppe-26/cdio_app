@@ -37,8 +37,6 @@ class Controller {
 
   Future<List<User>> getUserList() async{
     List<User> userList = await dao.getUsersAll();
-    print("ROLE PRINT TEST");
-    print(userList[1].roles.elementAt(0));
     return userList;
   }
 

@@ -23,6 +23,7 @@ public class UserServiceFlutter { // Start på UserService klasse.
 
     // I stedet for database
     static Map<Integer, UserDTO> users = new HashMap<>();
+
     // Dummy data
     static {
         users.put(1, new UserDTO(1, "Tristan", "TES", "Hund123", new ArrayList<>(Arrays.asList("Admin", "Moderator"))));
@@ -34,11 +35,11 @@ public class UserServiceFlutter { // Start på UserService klasse.
     static PriorityQueue<Integer> queue = new PriorityQueue<Integer>();
     static Queue<Integer> que = new PriorityQueue<>();
 
-    public static int createUserID(){
+    public static int createUserID() {
         if (que.peek() != null) {
             return que.remove();
         } else {
-            return users.size()+1;
+            return users.size() + 1;
         }
     }
 
@@ -47,7 +48,9 @@ public class UserServiceFlutter { // Start på UserService klasse.
     // Postman GET eksempel ***  http://localhost:8080/Lektion12/rest/userFlutter/2
     @GET
     @Path("{id}") // parameter
-    public UserDTO getUserfromID(@PathParam("id") int id) { return users.get(id); }
+    public UserDTO getUserfromID(@PathParam("id") int id) {
+        return users.get(id);
+    }
 
     // Getter alle brugere og returnere dem i en  ArrayListe.
     // Postman GET eksempel ***  http://localhost:8080/Lektion12/rest/userFlutter/
@@ -61,12 +64,12 @@ public class UserServiceFlutter { // Start på UserService klasse.
     @Path("{username}") // parameter
     @Produces(MediaType.TEXT_PLAIN)
     public UserDTO getUser(@PathParam("username") String username) {
-        for(int i = 1; i<=users.size();i++){
-            if(username.equals(users.get(i).getUserName())){
+        for (int i = 1; i <= users.size(); i++) {
+            if (username.equals(users.get(i).getUserName())) {
                 return users.get(i);
             }
         }
-    return null;
+        return null;
     }
 
 
@@ -81,7 +84,7 @@ public class UserServiceFlutter { // Start på UserService klasse.
         ArrayList<String> roles = new ArrayList<String>();
         JSONArray jArray = jsonObject.getJSONArray("roles");
         if (jArray != null) {
-            for (int i=0;i<jArray.length();i++){
+            for (int i = 0; i < jArray.length(); i++) {
                 roles.add(jArray.getString(i));
             }
         }
@@ -89,8 +92,7 @@ public class UserServiceFlutter { // Start på UserService klasse.
         UserDTO user = new UserDTO(createUserID(), jsonObject.getString("userName"), jsonObject.getString("ini"), jsonObject.getString("password"), roles);
 
         //putIfAbsent returner null hvis id ikke eksisterer. returner nøgle-værdien(UserDTO) hvis id eksisterer.
-        if (users.putIfAbsent(user.getUserId(), user) == null)
-        {
+        if (users.putIfAbsent(user.getUserId(), user) == null) {
             System.out.println("Bruger tilføjet. Det gik godt! (backend)");
 
             //System.out.println(getUserList()); // printer brugere fra Mappen. Til test formål.
@@ -106,8 +108,7 @@ public class UserServiceFlutter { // Start på UserService klasse.
                     .header("Connection", "keep-alive")
                     .entity(user)
                     .build();
-        }
-        else {
+        } else {
             //System.out.println(getUserList());
             throw new InvalidIdException("ID " + user.getUserId() + " er allerede i brug!");
         }
@@ -118,7 +119,7 @@ public class UserServiceFlutter { // Start på UserService klasse.
     @Produces(MediaType.TEXT_PLAIN)
     public Response updateUser(String body) throws InvalidIdException, JSONException {
         System.out.println("Updating user");
-        System.out.println("Body"+body);
+        System.out.println("Body" + body);
         JSONObject jsonObject = new JSONObject(body);
         ArrayList<String> roles = new ArrayList<String>();
         JSONArray jArray = jsonObject.getJSONArray("roles");
@@ -130,7 +131,7 @@ public class UserServiceFlutter { // Start på UserService klasse.
         int userID = jsonObject.getInt("userId");
         // user oprettes og håndteres fra JSONobjekt til UserDTO.
         UserDTO user = new UserDTO(userID, jsonObject.getString("userName"), jsonObject.getString("ini"), jsonObject.getString("password"), roles);
-        System.out.println("User"+user);
+        System.out.println("User" + user);
         users.put(userID, user);
         return Response
                 .status(200)
@@ -157,9 +158,9 @@ public class UserServiceFlutter { // Start på UserService klasse.
             que.add(id);
             users.remove(id);
             //System.out.println(getUserList());
-            return Response.ok("Bruger med ID: "+ id +" slettet.").build();
+            return Response.ok("Bruger med ID: " + id + " slettet.").build();
         } else {
-            return Response.status(Status.BAD_REQUEST).entity("Bruger med ID: "+ id +" kan ikke slettes, da den ikke findes.").build();
+            return Response.status(Status.BAD_REQUEST).entity("Bruger med ID: " + id + " kan ikke slettes, da den ikke findes.").build();
         }
     }
 
@@ -167,39 +168,29 @@ public class UserServiceFlutter { // Start på UserService klasse.
     @Path("{login}")
     @Produces(MediaType.TEXT_PLAIN)
     public Response loginConfirmation(String loginbody) throws InvalidIdException, JSONException {
-        System.out.println("loginbody 1: "+loginbody);
+        System.out.println("loginbody 1: " + loginbody);
         JSONObject jsonObject = new JSONObject(loginbody);
-        System.out.println("loginbody 2: "+loginbody);
-        int tal = 0;
-        UserDTO loginUser = new UserDTO(1,jsonObject.getString("userName"),"ini",jsonObject.getString("password"),new ArrayList<>(Arrays.asList("Admin", "Moderator")));
-        boolean b = false;
-        for(int i = 1; i<=users.size(); i++){
+        System.out.println("loginbody 2: " + loginbody);
+        for (int i = 1; i <= users.size(); i++) {
             System.out.println(i);
-            if(users.get(i).getUserName().equals(jsonObject.getString("userName")) &&
-                    users.get(i).getPassword().equals(jsonObject.getString("password"))){
-                b = true;
-                tal = i;
-                System.out.println("User found!");
+            if (users.get(i).getUserName().equals(jsonObject.getString("userName")) &&
+                    users.get(i).getPassword().equals(jsonObject.getString("password"))) {
+                System.out.println("Returning success statement");
+                return Response
+                        .status(200)
+                        .type("application/json; charset=utf-8")
+                        .header("Status", 200 + " OK")
+                        .header("Access-Control-Allow-Origin", "*")
+                        .header("Access-Control-Allow-Credentials", true)
+                        .header("X-Frame-Options", "SAMEORIGIN")
+                        .header("X-XSS-Protection", "1; mode=block")
+                        .header("X-Content-Type-Options", "nosniff")
+                        .header("Connection", "keep-alive")
+                        .entity(users.get(i))
+                        .build();
             }
         }
-        if(b==true){
-            System.out.println("Returning success statement");
-            return Response
-                    .status(200)
-                    .type("application/json; charset=utf-8")
-                    .header("Status", 200 + " OK")
-                    .header("Access-Control-Allow-Origin", "*")
-                    .header("Access-Control-Allow-Credentials", true)
-                    .header("X-Frame-Options", "SAMEORIGIN")
-                    .header("X-XSS-Protection", "1; mode=block")
-                    .header("X-Content-Type-Options", "nosniff")
-                    .header("Connection", "keep-alive")
-                    .entity(users.get(tal))
-                    .build();
-        }
-        else{
-            System.out.println("User not found");
-            throw new InvalidIdException("Bruger ikke fundet");        }
+        return null;
     }
 } // Slut på UserService klasse.
 
