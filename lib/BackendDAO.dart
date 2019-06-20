@@ -105,7 +105,7 @@ class BackendDAO {
         .catchError((error) => print(error.toString()));
     print("her er crap: "+response.body);
     if (response.statusCode == 200) {
-      var userMap = jsonDecode(response.body); // jsonDecode laver json-strengen til en Map<String, dynamic>,
+      var userMap = jsonDecode(response.body); // jsonDecode laver json-strengen til en Map<String, dynamic>
       var user = User.fromJson(userMap);
       return user;
     }
