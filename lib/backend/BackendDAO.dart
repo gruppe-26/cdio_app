@@ -58,15 +58,22 @@ class BackendDAO {
     return statement;
   }
 
-  Future<bool> erSpilletTabt() async{
+  Future<String> erSpilletTabt() async{
     final response = await http.get(SERVER_URL+"/erSpilletTabt");
-    bool statement = response.body as bool;
+    String statement = response.body;
     return statement;
   }
 
-  Future<bool> erSpilletVundet() async{
+  Future<String> erSpilletVundet() async{
     final response = await http.get(SERVER_URL+"/erSpilletVundet");
-    bool statement = response.body as bool;
+    String statement = response.body;
+    return statement;
+  }
+
+  Future<String> erSpilletSlut() async{
+    final response = await http.get(SERVER_URL+"/erSpilletSlut");
+    String statement = response.body;
+    print("ER SPILLET SLUT RESPONSE: "+statement);
     return statement;
   }
 
@@ -74,6 +81,13 @@ class BackendDAO {
     final response = await http.get(SERVER_URL+"/getOrdet");
     String statement = response.body;
     return statement;
+  }
+
+  Future<String> getForkerteBogstaver() async{
+    final response = await http.get(SERVER_URL+"/brugtebogstaver");
+    String bogstaver = response.body;
+
+    return bogstaver;
   }
 
 

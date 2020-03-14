@@ -19,23 +19,14 @@ class LoginPageState extends State<LoginPage> with SingleTickerProviderStateMixi
   @override
   Widget build(BuildContext context){
     return new Scaffold(
-      backgroundColor: Colors.black38,
+      backgroundColor: Colors.lightBlueAccent,
       body: new Stack(
         fit: StackFit.expand, // Expands the background Image so it fits on the entire screen
         children: <Widget>[
-          new Image(
-            image: new AssetImage("assets/laboratoryPlaceholder.png"),
-            fit: BoxFit.cover,
-            color: Colors.black38,
-            colorBlendMode: BlendMode.darken,
-          ),
+
           new Column(
             mainAxisAlignment: MainAxisAlignment.center, // Aligns logo to center
             children: <Widget>[
-              new Image(
-                image: new AssetImage("assets/1280px-Aperture_Laboratories_Logo.png"),
-                width: 324,
-              ),
               new Form(
                 key: _formKey, // Here is the form key inside the form
                 child: new Theme(

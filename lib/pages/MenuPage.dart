@@ -10,14 +10,7 @@ class GameScreen extends StatelessWidget {
         length: 1,
         child: Scaffold(
           appBar: AppBar(
-            title: Row(
-              mainAxisAlignment: MainAxisAlignment.start,
-              children: [
-                new Image.asset("assets/1280px-Aperture_Laboratories_Logo.png", fit: BoxFit.cover,
-                height: 64,
-                ),
-              ]
-            ),
+
             // This removes the back button so that you can only reach the login page by logging out.
             actions: <Widget>[
               new IconButton(

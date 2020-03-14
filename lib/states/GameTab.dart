@@ -18,13 +18,14 @@ class Game extends StatefulWidget {
 
 
 class _GameTab extends State<Game> with SingleTickerProviderStateMixin {
-  final AsyncMemoizer _memoizer = AsyncMemoizer();
   final _formKey = GlobalKey<FormState>();
   final _guess = TextEditingController();
   String g;
+  String _gameEndState;
   String _tekst="Skriv Bogstavet her";
   String _synligtOrd;
   int countTouch = 0;
+  String _brugteBogstaver;
   @override
   void initState(){
     super.initState();
@@ -40,6 +41,7 @@ class _GameTab extends State<Game> with SingleTickerProviderStateMixin {
 
   @override
   Widget build(BuildContext context) {
+
     _synligtOrd = c.getSynligtOrd();
     return FutureBuilder(
       future: this.getWord(),
@@ -52,10 +54,12 @@ class _GameTab extends State<Game> with SingleTickerProviderStateMixin {
             return Center(
               child: SingleChildScrollView(
                 child: Column(
+
                   children: <Widget>[
                     SizedBox(height: 120), // Creates spaces between the different layouts
                     Container(child: Center(child: Text("$_synligtOrd"),
-                    ))
+                    )),
+                    Container(child: Center(child: Text("Brugte bogstaver: $_brugteBogstaver"),),)
                     ,
                     SizedBox(height: 100),
                     TextFormField(
@@ -95,6 +99,24 @@ class _GameTab extends State<Game> with SingleTickerProviderStateMixin {
                         // TODO : Send bogstav til controller
                         this._synligtOrd = await guessWord(_guess.text);
                         _guess.clear();
+
+                        String boo = await c.erSpilletSlut();
+                        if(boo == "true"){
+                          print("SPILLET ER NU SLUT BUM BUM ");
+                          String erVundet= await c.erSpilletVundet();
+                          if(erVundet== "true"){
+                            // DU HAR VUNDET
+                            print("DU HAR VUNDET");
+                            _gameEndState = "DU HAR VUNDET!!";
+                            _showDialog(context);
+                          }
+                          else{
+                            // DU HAR TABT
+                            _gameEndState = "DU HAR TABT :(";
+                            _showDialog(context);
+                          }
+                        }
+
                       },
                     )
                   ],
@@ -112,13 +134,33 @@ class _GameTab extends State<Game> with SingleTickerProviderStateMixin {
     return ord;
   }
 
-
-
   guessWord(String guess)async{
     String synligtOrd;
-      await Future.delayed(Duration(milliseconds: 400));
       synligtOrd = await c.guessWord(guess);
-      print("guessing:::");
-      return synligtOrd;
+    await Future.delayed(Duration(milliseconds: 100));
+    _brugteBogstaver = await c.getForkerteBogstaver();
+      return _brugteBogstaver;
   }
+
+  Future<void> _showDialog(BuildContext context){
+    return showDialog<void>(
+      context: context,
+      builder: (BuildContext context) {
+        return AlertDialog(
+          title: Text('Spillet er nu slut'),
+          content: Text(this._gameEndState),
+          actions: <Widget>[
+            FlatButton(
+              child: Text('Ok'),
+              onPressed: () {
+                Navigator.of(context).pop();
+              },
+            ),
+          ],
+        );
+      },
+    );
+  }
+
+
 }
