@@ -1,14 +1,9 @@
 import 'package:flutter/material.dart';
-
 //other imports
-import 'MenuPage.dart';
-import 'UpdateUserTab.dart';
-import 'loginpage.dart';
-
-// d
+import 'package:cdio_app/pages/MenuPage.dart';
+import 'package:cdio_app/pages/loginpage.dart';
 // This main.dart contains the login page.
 void main()=> runApp(new MyApp());
-
 class MyApp extends StatelessWidget{
   @override
   Widget build(BuildContext context){
@@ -20,14 +15,8 @@ class MyApp extends StatelessWidget{
       initialRoute: 'home',
       routes: {
         'home': (context) => LoginPage(),
-
-        '/otherPage': (context) => OtherScreen(),
-
-        'updateuser': (context) => UpdateUserTab(),
+        '/otherPage': (context) => GameScreen(),
       },
     );
   }
 }
-
-//djsalkfja
-

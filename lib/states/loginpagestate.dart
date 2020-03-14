@@ -1,28 +1,21 @@
-import 'dart:convert';
 import 'dart:core' as prefix0;
 import 'dart:core';
-import 'dart:math';
-import 'Controller.dart';
-import 'package:cdio_app/user.dart';
+import 'package:cdio_app/backend/BackendDAO.dart';
+import 'package:cdio_app/controller/Controller.dart';
+import 'package:cdio_app/backend/user.dart';
 import 'package:flutter/material.dart';
-
 //other imports
-
-import 'loginpage.dart';
-import 'MenuPage.dart';
-import 'loginUser.dart';
-import 'BackendDAO.dart';
+import 'package:cdio_app/pages/loginpage.dart';
 
 Controller c = new Controller();
+BackendDAO run = new BackendDAO();
 
 class LoginPageState extends State<LoginPage> with SingleTickerProviderStateMixin {
 // Create a global key that will uniquely identify the Form widget and allow us to validate the form
   final _formKey = GlobalKey<FormState>();
   final _username = TextEditingController();
   final _password = TextEditingController();
-  static User LoggedIn = new User(null,null,null,null,null);
-
-
+  static User LoggedIn = new User(null,null);
 
   @override
   Widget build(BuildContext context){
@@ -113,11 +106,10 @@ class LoginPageState extends State<LoginPage> with SingleTickerProviderStateMixi
                           style: new TextStyle(fontSize: 18),
                           ),
                           onPressed: () async {
-                            var loginUserCredentials = new User(null,_username.text,null,_password.text,null);
+                            var loginUserCredentials = new User(_username.text,_password.text);
                             if (_formKey.currentState.validate()) {
                               // If the form is filled out, then go to profile page. In reality we need to check the username/password
-                              User currentlyLoggedIn = await c.logIn(loginUserCredentials);
-                              if(currentlyLoggedIn.userId!=null){ // Check if the user exists
+                              if(await c.logIn(loginUserCredentials)){ // Check if the user exists
                                 print("pushing");
                                 Navigator.pushNamed(context, '/otherPage');
                               }
