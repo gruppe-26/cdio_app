@@ -9,7 +9,7 @@ class Controller {
   Controller();
 
   String _synligtOrd;
-
+  String _ordet;
 
   // methods
   Future<bool> logIn(User loginUser) async{
@@ -33,6 +33,10 @@ class Controller {
     return _synligtOrd;
   }
 
+  Future<String> getOrdet()async{
+    this._ordet = await dao.getOrdet();
+    return _ordet;
+  }
 
 
 }

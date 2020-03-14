@@ -70,6 +70,12 @@ class BackendDAO {
     return statement;
   }
 
+  Future<String> getOrdet() async{
+    final response = await http.get(SERVER_URL+"/getOrdet");
+    String statement = response.body;
+    return statement;
+  }
+
 
 
 

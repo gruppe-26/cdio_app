@@ -15,7 +15,6 @@ class LoginPageState extends State<LoginPage> with SingleTickerProviderStateMixi
   final _formKey = GlobalKey<FormState>();
   final _username = TextEditingController();
   final _password = TextEditingController();
-  static User LoggedIn = new User(null,null);
 
   @override
   Widget build(BuildContext context){
